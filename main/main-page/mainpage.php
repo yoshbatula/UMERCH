@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>DASHBOARD</title>
     <link rel="stylesheet" href="/css/mainpage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,19 +16,16 @@
             <div class="logo-container">
                 <img class="logo" src="/assests/umerch_logo.png" alt="UMERCH Logo">
             </div>
-
             <div class="menu-container">
                 <a href="#">HOME</a>
                 <a href="#">SHOP</a>
                 <a href="#">ABOUT US</a>
                 <a href="#">CONTACT US</a>
             </div>
-
             <div class="search-bar">
                 <input type="text" placeholder="Search...">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
-
             <div class="sidebar">
                 <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
                 <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
