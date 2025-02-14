@@ -12,6 +12,7 @@
 </head>
 <body>
 <header>
+    <!-- FOR NAVIGATION BAR -->
         <nav class="nav-bar">
             <div class="logo-container">
                 <img class="logo" src="/assests/umerch_logo.png" alt="UMERCH Logo">
