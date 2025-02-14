@@ -16,6 +16,7 @@
 <header>
     <!-- FOR NAVIGATION BAR -->
         <nav class="nav-bar">
+            <div class="logo-menu">
             <div class="logo-container">
                 <img class="logo" src="/assests/umerch_logo.png" alt="UMERCH Logo">
             </div>
@@ -25,6 +26,8 @@
                 <a href="#">ABOUT US</a>
                 <a href="#">CONTACT US</a>
             </div>
+            </div>
+            
             <div class="search-bar">
                 <input type="text" placeholder="Search...">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -37,5 +40,8 @@
             </div>
         </nav>
     </header>
+    <div class="background-image">
+    <img src="/assests/background-landingpage.png" alt="">
+    </div>
 </body>
 </html>
