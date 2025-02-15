@@ -41,7 +41,7 @@
         </nav>
     </header>
     <div class="background-image">
-    <img src="/assests/background-landingpage.png" alt="">
+    <img src="/assests/um5background.jpg" alt="">
     </div>
 </body>
 </html>
