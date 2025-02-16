@@ -17,31 +17,33 @@
     <!-- FOR NAVIGATION BAR -->
         <nav class="nav-bar">
             <div class="logo-menu">
-            <div class="logo-container">
-                <img class="logo" src="/assests/umerch_logo.png" alt="UMERCH Logo">
-            </div>
-            <div class="menu-container">
-                <a href="#">HOME</a>
-                <a href="#">SHOP</a>
-                <a href="#">ABOUT US</a>
-                <a href="#">CONTACT US</a>
-            </div>
+                <div class="logo-container">
+                    <img class="logo" src="/assests/umerch_logo.png" alt="UMERCH Logo">
+                </div>
+                    <div class="menu-container">
+                        <a href="#">HOME</a>
+                        <a href="#">SHOP</a>
+                        <a href="#">ABOUT US</a>
+                        <a href="#">CONTACT US</a>
+                    </div>
             </div>
             
-            <div class="search-bar">
-                <input type="text" placeholder="Search...">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
-            <div class="sidebar">
-                <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-                <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
-                <a href="#"><i class="fa-solid fa-bell"></i></a>
-                <a href="#"><i class="fa-solid fa-user"></i></a>
-            </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search...">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <div class="sidebar">
+                    <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
+                    <a href="#"><i class="fa-solid fa-bell"></i></a>
+                    <a href="#"><i class="fa-solid fa-user"></i></a>
+                </div>
         </nav>
     </header>
-    <div class="background-image">
-    <img src="/assests/um5background.jpg" alt="">
-    </div>
+    <section class="welcome-container">
+        <div class="background-image">
+            <img src="" alt="">
+        </div>
+    </section>
 </body>
 </html>
