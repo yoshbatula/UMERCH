@@ -43,7 +43,9 @@
         <img src="/assests/um5background.jpg" alt="">
     </div>
     <div class="welcome-message">
-        <p></p>
+        <small>CASUAL & EVERYDAY</small>
+        <P>Effortlessly combine comfort with</P>
+        <p>campus style!</p>
     </div>
 </section>
 
