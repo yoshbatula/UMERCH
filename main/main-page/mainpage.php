@@ -42,6 +42,9 @@
     <div class="background-image">
         <img src="/assests/um5background.jpg" alt="">
     </div>
+    <div class="welcome-message">
+        <p></p>
+    </div>
 </section>
 
 </body>
