@@ -70,7 +70,7 @@
   }
   
   .row {
-    background-image: url("/assests/images/background-landingpage.png");
+    background-image: url("/assets/images/background-landingpage.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -296,7 +296,7 @@
   }
   
   .container-limited {
-    background-image: url(/assests/images/yeppeo.png);
+    background-image: url(/assets/images/yeppeo.png);
     background-repeat: no-repeat;
     background-size: cover; /* Ensures background covers the container */
     background-position: center;
@@ -438,7 +438,7 @@
   
   
   .review-contents {
-    background-image: url("/assests/images/review.png");
+    background-image: url("/assets/images/review.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -514,7 +514,7 @@
   
   
   .explore-contents {
-    background-image: url("/assests/images/explore.png");
+    background-image: url("/assets/images/explore.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

@@ -19,7 +19,7 @@
       <div class="container">
         <div class="nav-bar">
           <div class="logo">
-            <img src="/assests/images/logo.png" alt="UMERCH Logo">
+            <img src="/assets/images/logo.png" alt="UMERCH Logo">
           </div>
           <nav class="nav-1">
             <ul>
@@ -30,10 +30,10 @@
             </ul>
           </nav>
           <nav class="nav-2">
-            <a href="home.html"><img src="/assests/images/cart-icon.png"></a>
-            <a href="shop.html"><img src="/assests/images/shop-icon.png"></a>
-            <a href="about.html"><img src="/assests/images/notif-icon.png"></a>
-            <a href="contact.html"><img src="/assests/images/profile-icon.png"></a>
+            <a href="home.html"><img src="/assets/images/cart-icon.png"></a>
+            <a href="shop.html"><img src="/assets/images/shop-icon.png"></a>
+            <a href="about.html"><img src="/assets/images/notif-icon.png"></a>
+            <a href="contact.html"><img src="/assets/images/profile-icon.png"></a>
           </nav>
         </div>
         <div class="row">
@@ -52,17 +52,17 @@
     <div class="container-sales">
       <div class="bar-2">
         <div class="brands">
-          <img src="/assests/images/brand-1.png">
-          <img src="/assests/images/brand-2.png">
-          <img src="/assests/images/brand-3.png">
-          <img src="/assests/images/brand-4.png">
-          <img src="/assests/images/brand-5.png">
+          <img src="/assets/images/brand-1.png">
+          <img src="/assets/images/brand-2.png">
+          <img src="/assets/images/brand-3.png">
+          <img src="/assets/images/brand-4.png">
+          <img src="/assets/images/brand-5.png">
         </div>
       </div>
       <div class="sales">
         <div class="off-sales">
           <div class="sale-item">
-            <img src="/assests/images/sale.png" alt="Sale Item">
+            <img src="/assets/images/sale.png" alt="Sale Item">
             <div class="sale-text">
               <p class="sale-h">20% Off on T-Shirts</p>
               <p>Lorem ipsum dolor sit amet consectetur.</p>
@@ -71,7 +71,7 @@
             <a href="" class="btn-shop">SHOP NOW</a>
           </div>
           <div class="sale-item">
-            <img src="/assests/images/sale.png" alt="Sale Item">
+            <img src="/assets/images/sale.png" alt="Sale Item">
             <div class="sale-text">
               <p class="sale-h">20% Off on T-Shirts</p>
               <p>Lorem ipsum dolor sit amet consectetur.</p>
@@ -80,7 +80,7 @@
             <a href="" class="btn-shop">SHOP NOW</a>
           </div>
           <div class="sale-item">
-            <img src="/assests/images/sale.png" alt="Sale Item">
+            <img src="/assets/images/sale.png" alt="Sale Item">
             <div class="sale-text">
               <p class="sale-h">20% Off on T-Shirts</p>
               <p>Lorem ipsum dolor sit amet consectetur.</p>
@@ -97,39 +97,39 @@
       <div class="con">
         <div class="bar-featured">
           <p>Featured Products</p>
-          <img src="/assests/images/yellow-line.png" alt="yellow-line">
+          <img src="/assets/images/yellow-line.png" alt="yellow-line">
         </div>
         <div class="products-featured">
           <div class="product-card">
-            <img src="/assests/images/esports.jpg" alt="fproduct">
+            <img src="/assets/images/esports.jpg" alt="fproduct">
             <h4>UM CCE ESPORTS JERSEY</h4>
             <p>Men</p>
             <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
             <div class="stars">★★★★★</div>
           </div>
           <div class="product-card">
-            <img src="/assests/images/esports.jpg" alt="fproduct">
+            <img src="/assets/images/esports.jpg" alt="fproduct">
             <h4>UM CCE ESPORTS JERSEY</h4>
             <p>Men</p>
             <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
             <div class="stars">★★★★★</div>
           </div>
           <div class="product-card">
-            <img src="/assests/images/esports.jpg" alt="fproduct">
+            <img src="/assets/images/esports.jpg" alt="fproduct">
             <h4>UM CCE ESPORTS JERSEY</h4>
             <p>Men</p>
             <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
             <div class="stars">★★★★★</div>
           </div>
           <div class="product-card">
-            <img src="/assests/images/esports.jpg" alt="fproduct">
+            <img src="/assets/images/esports.jpg" alt="fproduct">
             <h4>UM CCE ESPORTS JERSEY</h4>
             <p>Men</p>
             <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
             <div class="stars">★★★★★</div>
           </div>
           <div class="product-card">
-            <img src="/assests/images/esports.jpg" alt="fproduct">
+            <img src="/assets/images/esports.jpg" alt="fproduct">
             <h4>UM CCE ESPORTS JERSEY</h4>
             <p>Men</p>
             <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
@@ -137,35 +137,35 @@
           </div>
 
           <div class="product-card">
-            <img src="/assests/images/esports.jpg" alt="fproduct">
+            <img src="/assets/images/esports.jpg" alt="fproduct">
             <h4>UM CCE ESPORTS JERSEY</h4>
             <p>Men</p>
             <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
             <div class="stars">★★★★★</div>
           </div>
           <div class="product-card">
-            <img src="/assests/images/esports.jpg" alt="fproduct">
+            <img src="/assets/images/esports.jpg" alt="fproduct">
             <h4>UM CCE ESPORTS JERSEY</h4>
             <p>Men</p>
             <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
             <div class="stars">★★★★★</div>
           </div>
           <div class="product-card">
-            <img src="/assests/images/esports.jpg" alt="fproduct">
+            <img src="/assets/images/esports.jpg" alt="fproduct">
             <h4>UM CCE ESPORTS JERSEY</h4>
             <p>Men</p>
             <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
             <div class="stars">★★★★★</div>
           </div>
           <div class="product-card">
-            <img src="/assests/images/esports.jpg" alt="fproduct">
+            <img src="/assets/images/esports.jpg" alt="fproduct">
             <h4>UM CCE ESPORTS JERSEY</h4>
             <p>Men</p>
             <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
             <div class="stars">★★★★★</div>
           </div>
           <div class="product-card">
-            <img src="/assests/images/esports.jpg" alt="fproduct">
+            <img src="/assets/images/esports.jpg" alt="fproduct">
             <h4>UM CCE ESPORTS JERSEY</h4>
             <p>Men</p>
             <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
@@ -188,60 +188,60 @@
         <div class="container-accessories">
           <div class="title">
             <p>UM Accessories</p>
-            <img src="/assests/images/yellow-line.png" alt="yellow-line">
+            <img src="/assets/images/yellow-line.png" alt="yellow-line">
           </div>
           <div class="accessories-items">
             <div class="accessories">
-              <img src="/assests/images/esports.jpg" alt="fproduct">
+              <img src="/assets/images/esports.jpg" alt="fproduct">
               <h4>UM CCE ESPORTS JERSEY</h4>
               <p>Men</p>
               <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
               <div class="stars">★★★★★</div>
             </div>
             <div class="accessories">
-              <img src="/assests/images/esports.jpg" alt="fproduct">
+              <img src="/assets/images/esports.jpg" alt="fproduct">
               <h4>UM CCE ESPORTS JERSEY</h4>
               <p>Men</p>
               <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
               <div class="stars">★★★★★</div>
             </div>
             <div class="accessories">
-              <img src="/assests/images/esports.jpg" alt="fproduct">
+              <img src="/assets/images/esports.jpg" alt="fproduct">
               <h4>UM CCE ESPORTS JERSEY</h4>
               <p>Men</p>
               <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
               <div class="stars">★★★★★</div>
             </div>
             <div class="accessories">
-              <img src="/assests/images/esports.jpg" alt="fproduct">
+              <img src="/assets/images/esports.jpg" alt="fproduct">
               <h4>UM CCE ESPORTS JERSEY</h4>
               <p>Men</p>
               <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
               <div class="stars">★★★★★</div>
             </div>
             <div class="accessories">
-              <img src="/assests/images/esports.jpg" alt="fproduct">
+              <img src="/assets/images/esports.jpg" alt="fproduct">
               <h4>UM CCE ESPORTS JERSEY</h4>
               <p>Men</p>
               <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
               <div class="stars">★★★★★</div>
             </div>
             <div class="accessories">
-              <img src="/assests/images/esports.jpg" alt="fproduct">
+              <img src="/assets/images/esports.jpg" alt="fproduct">
               <h4>UM CCE ESPORTS JERSEY</h4>
               <p>Men</p>
               <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
               <div class="stars">★★★★★</div>
             </div>
             <div class="accessories">
-              <img src="/assests/images/esports.jpg" alt="fproduct">
+              <img src="/assets/images/esports.jpg" alt="fproduct">
               <h4>UM CCE ESPORTS JERSEY</h4>
               <p>Men</p>
               <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
               <div class="stars">★★★★★</div>
             </div>
             <div class="accessories">
-              <img src="/assests/images/esports.jpg" alt="fproduct">
+              <img src="/assets/images/esports.jpg" alt="fproduct">
               <h4>UM CCE ESPORTS JERSEY</h4>
               <p>Men</p>
               <p class="price"><span class="old-price">$150.00</span> <span class="new-price">$120.00</span></p>
@@ -267,22 +267,22 @@
     <div class="container-service">
       <d class="service-contents">
         <div class="qualities">
-          <img src="/assests/images/quality-1.png" alt="quality">
+          <img src="/assets/images/quality-1.png" alt="quality">
           <h4>Campus Delivery</h4>
           <p>Lorem ipsum dolor sit amet consectetur. Eget sed sapien quisque et suspendisse.</p>
         </div>
         <div class="qualities">
-          <img src="/assests/images/quality-2.png" alt="quality">
+          <img src="/assets/images/quality-2.png" alt="quality">
           <h4>Best Quality</h4>
           <p>Lorem ipsum dolor sit amet consectetur. Eget sed sapien quisque et suspendisse.</p>
         </div>
         <div class="qualities">
-          <img src="/assests/images/quality-3.png" alt="quality">
+          <img src="/assets/images/quality-3.png" alt="quality">
           <h4>Best Offers</h4>
           <p>Lorem ipsum dolor sit amet consectetur. Eget sed sapien quisque et suspendisse.</p>
         </div>
         <div class="qualities">
-          <img src="/assests/images/quality-4.png" alt="quality">
+          <img src="/assets/images/quality-4.png" alt="quality">
           <h4>Secure Payments</h4>
           <p>Lorem ipsum dolor sit amet consectetur. Eget sed sapien quisque et suspendisse.</p>
         </div>
