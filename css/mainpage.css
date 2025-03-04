@@ -1,3 +1,565 @@
-#search-btn {
-    display: absolute;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400px;
+  }
+  
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  /* FIRST VIEW */
+  
+  .nav-bar {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #be0002;
+  }
+  
+  .logo {
+    width: 150px;
+    margin-right: 45px;
+  }
+  
+  .nav-1 {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .nav-1 ul {
+    display: inline-block;
+    list-style-type: none;
+  }
+  
+  .nav-1 ul li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
+  .nav-2 {
+    flex: 1;
+    text-align: right;
+  }
+  
+  .nav-2 a {
+    width: 35px;
+    height: 35px;
+    margin-right: 40px;
+  }
+  
+  .nav-2 a:last-child {
+    margin-right: 0;
+  }
+  
+  a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400px;
+  }
+  
+  p {
+    color: rgba(255, 255, 255, 0.9);
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400px;
+  }
+  
+  .row {
+    background-image: url("/assests/images/background-landingpage.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 904px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .col-2 {
+    max-width: 70%;
+    min-width: 300px;
+    z-index: 1;
+    margin-top: -155px;
+  }
+  
+  .col-2 h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 75px;
+    line-height: 80px;
+    color: white;
+    margin: 10px 0;
+  }
+  
+  .col-2 .p-2 {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .btn-view {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.55);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 12px 32px;
+    border: solid 1.5px;
+    border-color: rgba(255, 255, 255, 0.9);
+  }
+  
+  /* OFF SALES */
+  .container-sales {
+    height: 610px;
+  }
+  
+  .bar-2 {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+  }
+  
+  .bar-2 .brands {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin: 15px 0;
+  }
+  
+  .sales {
+    display: flex;
+    align-items: center;
+    height: auto;
+  }
+  
+  .sales .off-sales {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 15px 0;
+    column-gap: 20px;
+  }
+  
+  .sales .off-sales img {
+    width: 360px;
+    height: 400px;
+  }
+  
+  .sale-item {
+    position: relative; /* Allows button to be positioned inside */
+    display: flex;
+    flex-direction: column; /* Ensures items stack */
+    align-items: center; /* Centers the content */
+    width: 100%; /* Make it take full width */
+    max-width: 360px;
+  }
+  
+  .sale-item img {
+    width: 100%; /* Image will scale with the parent */
+    height: auto; /* Maintains aspect ratio */
+    max-width: 360px; /* Prevents large images */
+    color: rgba(0, 0, 0, 0.18);
+  }
+  
+  .sale-item .btn-shop {
+    position: absolute;
+    width: 121px;
+    height: 30px;
+    top: 85%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 182, 0, 1);
+    color: rgba(255, 255, 255, 0.9);
+    padding-top: 5px;
+    border: 1.5px solid rgba(255, 255, 255, 0.9);
+    text-align: center;
+  }
+  
+  .sale-text {
+    position: absolute;
+    top: 65%; /* Adjust as needed */
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%); /* Centering trick */
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.08); /* Optional dark overlay */
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .sale-text .sale-h {
+    font-size: 30px;
+    font-weight: 400px;
+  }
+  
+  .sale-text p {
+    font-size: 12px;
+  }
+  
+  @media (max-width: 768px) {
+    .sales .off-sales {
+      flex-direction: column; /* Stacks items */
+      align-items: center;
+    }
+  
+    .sale-item {
+      width: 50%; /* Adjusts width on smaller screens */
+      max-width: 300px;
+    }
+  }
+  /* FEATURED PRODUCTS */
+  
+  .container-featured {
+    background-color: rgba(217, 217, 217, 1);
+    height: auto;
+  }
+  
+  .bar-featured {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .bar-featured p {
+    color: rgba(0, 0, 0, 1);
+    font-weight: bold;
+    font-size: 42px;
+    margin-top: 45px;
+    margin-bottom: 10px;
+  }
+  
+  .bar-featured img {
+    height: 7px;
+    margin-bottom: 60px;
+  }
+  
+  .products-featured {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 60px;
+  }
+  
+  .product-card {
+    background-color: rgba(217, 217, 217, 1);
+    flex: 0 0 calc(20% - 10px);
+    box-sizing: border-box;
+    margin-bottom: 20px;
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .product-card h4 {
+    margin-bottom: 10px;
+  }
+  
+  .product-card p {
+    margin-bottom: 6px;
+    font-size: 13.6px;
+    color: black;
+  }
+  
+  /* For medium screens */
+  @media screen and (max-width: 1600px) {
+    .product-card {
+      flex: 0 0 calc(25% - 10px);
+    }
+  }
+  @media screen and (max-width: 1280px) {
+    .product-card {
+      flex: 0 0 calc(33.33% - 10px);
+    }
+  }
+  
+  @media screen and (max-width: 900px) {
+    .product-card {
+      flex: 0 0 calc(50% - 10px);
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .product-card {
+      flex: 0 0 100%;
+    }
+  }
+  
+  .container-limited {
+    background-image: url(/assests/images/yeppeo.png);
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensures background covers the container */
+    background-position: center;
+    height: 500px; /* Match `.row` height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    width: 100%; /* Make it responsive */
+    max-width: 1160px; /* Ensure it does not exceed 1160px */
+    margin: 0 auto; /* Centers the div horizontally */
+  }
+  
+  .limited-text {
+    max-width: 70%;
+    min-width: 300px;
+    z-index: 1;
+    color: white;
+    text-align: left; /* Ensures text is centered */
+    margin-left: -245px;
+  }
+  
+  .limited-text .text-1 {
+    font-size: 20px;
+    font-weight: 400; /* Fix font-weight issue */
+    margin-bottom: 20px;
+  }
+  
+  .limited-text .text-2 {
+    font-size: 42px; /* Match `.col-2 h1` */
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+  
+  .limited-text .text-3 {
+    margin-bottom: 20px;
+  }
+  
+  
+  .limited-text .text-4 {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+  
+  .limited-text .btn-shop {
+    display: inline-block;
+    background: rgba(255, 182, 0, 1);
+    color: rgba(255, 255, 255, 0.9);
+    border: 1.5px solid rgba(255, 255, 255, 0.9);
+    padding: 12px 32px;
+    margin-top: 15px;
+    text-align: center;
+  }
+  
+  
+  .container-accessories {
+    min-height: 445px;
+    background-color: rgba(217, 217, 217, 1);
+    margin-bottom: 70px;
+  }
+  
+  .container-accessories .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .title p {
+    color: rgba(0, 0, 0, 1);
+    font-weight: bold;
+    font-size: 42px;
+    margin-top: 80px;
+    margin-bottom: 10px;
+  }
+  
+  .title img {
+    height: 7px;
+    margin-bottom: 90px;
+  }
+  
+  .accessories-items {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .accessories {
+    flex: 0 0 calc(25% - 10px);
+    box-sizing: border-box;
+    margin-bottom: 20px;
+  }
+  .accessories p {
+    color: black;
+  }
+  .accessories img {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* For medium screens */
+  @media screen and (max-width: 1600px) {
+    .accessories {
+      flex: 0 0 calc(25% - 10px);
+    }
+  }
+  
+  @media screen and (max-width: 1280px) {
+    .accessories {
+      flex: 0 0 calc(33.33% - 10px);
+    }
+  }
+  
+  @media screen and (max-width: 1200px) {
+    .accessories {
+      flex: 0 0 calc(50% - 10px);
+    }
+    .brands img {
+      width: 20%;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .accessories {
+      flex: 0 0 100%;
+    }
+  }
+  
+  .con {
+    margin-left: 5%;
+    margin-right: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  
+  
+  .review-contents {
+    background-image: url("/assests/images/review.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 662px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .review-contents .stars {
+    background: rgba(255, 182, 0, 1);
+  }
+  
+  .review-contents .comment  {
+    width: 740px;
+    font-size: 31px;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400px;
+    font-style: italic;
+    line-height: 37.54px;
+  }
+  
+  .review-contents .commentor {
+    font-size: 11px;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600px;
+  }
+  
+  
+  .container-service {
+    height: 313px;
+    background-color: rgba(255, 255, 255, 1);
+  }
+  
+  .service-contents {
+    height: 172px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    width: 100%;
+    margin-top: 70px;
+    gap: 81px;
+  }
+  
+  .qualities {
+    width: 236px;
+    height: 100%;
+  }
+  
+  
+  .qualities img {
+    margin-bottom: 15px;
+  }
+  
+  .service-contents h4 {
+    color: black;
+    font-size: 20px;
+    font-weight: 500px;
+    margin-bottom: 10px;
+  }
+  
+  .service-contents p {
+    color: black;
+    font-weight: 300px;
+  }
+  
+  
+  .explore-contents {
+    background-image: url("/assests/images/explore.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 567px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: left;
+    width: 100%;
+  }
+  
+  .explore-contents .explore-text {
+    width: 753px;
+    height: 257px;
+    margin-right: -550px;
+  }
+  
+  .explore-text .text-1 {
+    font-weight: 600px;
+    margin-bottom: 10px;
+  }
+  
+  .explore-text .text-2 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600px;
+    font-size: 56px;
+    line-height: 60px;
+    margin-bottom: 10px;
+}
+
+.explore-text .text-3 {
+    font-size: 14px;
+    font-weight: 600px;
+    margin-bottom: 10px;
+    line-height: 17.07px;
+}
+
+.explore-text .btn-shop {
+    display: inline-block;
+    background: rgba(255, 182, 0, 1);
+    color: rgba(255, 255, 255, 0.9);
+    border: 1.5px solid rgba(255, 255, 255, 0.9);
+    padding: 12px 32px;
+    margin-top: 15px;
+    text-align: center;
 }

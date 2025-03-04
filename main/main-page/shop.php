@@ -16,7 +16,7 @@
 <nav class="navbar navbar-expand-lg navbar-custom" style="background-color: #BE0002;">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="/assests/UMERCHLOGO.png" alt="UMERCH Logo" height="40">
+            <img src="/assests/images/logo.png" alt="UMERCH Logo" height="40">
         </a>
 
         <form class="d-flex ms-auto">
@@ -55,7 +55,7 @@
 <!-- HEADER IMAGE -->
 <div class="d-flex">
     <div class="label-check-form text-center">
-        <img src="/assests/SHOPBG.png" alt="">
+        <img src="/assests/images/headerimg.png" alt="">
         <div class="overlay justify-content-center">
             <p>PRODUCT LIST</p>
             <h6>HOME / SHOP</h6>
@@ -94,7 +94,7 @@
         <div class="row">
             <div class="col-md-3 mb-3">
                 <div class="card custom-card-height" style="width: 17rem;">
-                    <img src="/assests/tshirt.jpg" class="card-img-top" alt="..." height="210">
+                    <img src="/assests/images/esports.jpg" class="card-img-top" alt="..." height="210">
                     <div class="card-body">
                         <h5 class="card-title">UM CCE ESPORTS</h5>
                         <h5 class="card-title">JERSEY</h5>
@@ -108,7 +108,7 @@
             </div>
             <div class="col-md-3 mb-3">
                 <div class="card custom-card-height" style="width: 17rem;">
-                    <img src="/assests/tshirt.jpg" class="card-img-top" alt="..." height="210">
+                    <img src="/assests/images/esports.jpg" class="card-img-top" alt="..." height="210">
                     <div class="card-body">
                         <h5 class="card-title">UM CCE ESPORTS</h5>
                         <h5 class="card-title">JERSEY</h5>
@@ -123,7 +123,7 @@
 
             <div class="col-md-3 mb-3">
                 <div class="card custom-card-height" style="width: 17rem;">
-                    <img src="/assests/tshirt.jpg" class="card-img-top" alt="..." height="210">
+                    <img src="/assests/images/esports.jpg" class="card-img-top" alt="..." height="210">
                     <div class="card-body">
                         <h5 class="card-title">UM CCE ESPORTS</h5>
                         <h5 class="card-title">JERSEY</h5>
@@ -137,7 +137,7 @@
             </div>
             <div class="col-md-3 mb-3">
                 <div class="card custom-card-height" style="width: 17rem;">
-                    <img src="/assests/tshirt.jpg" class="card-img-top" alt="..." height="210">
+                    <img src="/assests/images/esports.jpg" class="card-img-top" alt="..." height="210">
                     <div class="card-body">
                         <h5 class="card-title">UM CCE ESPORTS</h5>
                         <h5 class="card-title">JERSEY</h5>
