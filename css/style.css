@@ -7,7 +7,7 @@
 }
 
 body {
-    background-image: url("/assests/review.png");
+    background-image: url("/assets/images/LOGIN-BACKGROUND.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -18,12 +18,15 @@ a {
     text-decoration: none;
     color: white;
 }
+
 .um-logo {
     width: 10%;
-    height: 5%;
-    border-radius: 50%;
-    /* margin-bottom: 20px; */
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto 20px auto;
 }
+
 .container {
     width: 100%;
     display: flex;
@@ -37,7 +40,7 @@ a {
     margin-top: 20px;
     position: relative;
     width: 450px;
-    border: 1px solid #FFB600;
+    /* border: 1px solid #FFB600; */
     border-radius: 15px;
     background-color: rgba(190, 0, 2, 25%);
     box-shadow: 2px 4px 10px 2px rgba(114, 114, 114, 0.8);
@@ -56,7 +59,6 @@ h1 {
 
 input::placeholder {
     color: white;
-    /* padding: 5px; */
 }
 
 input[type=password]::-ms-reveal,
@@ -68,7 +70,6 @@ input[type=password]::-ms-clear {
     position: relative;
     display: flex;
     flex-direction: column;
-    /* margin: 20px; */
 }
 
 .input-field {
@@ -89,7 +90,6 @@ i {
     position: absolute;
     top: 20px;
     right: 15px;
-
 }
 
 .remember-forgot {
@@ -115,4 +115,3 @@ i {
     transform: scale(1.05);
     background-color: #d39905;
 }
-

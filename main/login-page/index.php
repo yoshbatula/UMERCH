@@ -15,7 +15,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="/assests/umerch_logo.png" alt="" class="um-logo">
+        <img src="/assets/images/logo.png" alt="" class="um-logo">
         <div class="login-box">
             <form action="/main/login-page/index.php" method="POST">
                 <h1>LOGIN</h1>
