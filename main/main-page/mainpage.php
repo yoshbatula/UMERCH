@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/mainpage.css">
 </head>
 <body>
@@ -36,7 +36,7 @@
             <a href="contact.html"><img src="/assets/images/profile-icon.png"></a>
           </nav>
         </div>
-        <div class="row">
+        <div class="row1">
           <div class="col-2">
             <p>CASUAL & EVERYDAY</p>
             <h1>Effortlessly combine comfort with <br> campus style!</h1>
@@ -302,10 +302,9 @@
       </div>
     </div>
   </div>
-
-<?php
-  include 'footer.php';
-?>
+  <?php
+    include 'footer.php';
+  ?>
 
 </body>
 

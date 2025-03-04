@@ -69,7 +69,7 @@
     font-weight: 400px;
   }
   
-  .row {
+  .row1 {
     background-image: url("/assets/images/background-landingpage.png");
     background-size: cover;
     background-position: center;
@@ -562,4 +562,31 @@
     padding: 12px 32px;
     margin-top: 15px;
     text-align: center;
+}
+
+.footer {
+  background-color: #F6F6F6;
+  padding: 20px 0;
+}
+.footer h3 {
+  margin-bottom: 15px;
+}
+.footer ul {
+  list-style: none;
+  padding: 0;
+}
+.footer ul li {
+  margin-bottom: 10px;
+}
+.footer ul li a {
+  text-decoration: none;
+  color: #000;
+}
+.footer .social-icons {
+  display: flex;
+  gap: 15px;
+}
+.footer .social-icons svg {
+  width: 24px;
+  height: 24px;
 }
