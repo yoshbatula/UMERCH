@@ -1,0 +1,25 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #BE0002;
+    color: white;
+}
+
+.navbar-custom {
+    /* background-color: #BE0002; */
+    font-family: Montserrat, sans-serif;
+}
+.navbar-custom .nav-link {
+    color: white !important;
+    font-weight: bold;
+}
+.navbar-custom .nav-link:hover {
+    text-decoration: underline;
+}
+.search-bar {
+    width: 250px;
+}
+.navbar-icons a {
+    color: white;
+    margin-left: 15px;
+    font-size: 1.2rem;
+}
