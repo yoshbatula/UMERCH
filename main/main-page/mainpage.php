@@ -38,6 +38,42 @@
         </div>
       </div>
     </section>
+    <section>
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="sale-section">
+              <img src="/assets/images/sale.png" alt="" height="400">
+              <div class="overlay">
+                <h3>20% Off on T-Shirts</h3>
+                <small>Get the best deals on your favorite items.</small>
+                <button class="btn btn-warning text-white" style="width: 121px; height: 40px; font-size: 12px;">SHOP NOW</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="sale-section">
+              <img src="/assets/images/sale.png" alt="" height="400">
+              <div class="overlay">
+                <h3>20% Off on T-Shirts</h3>
+                <small>Get the best deals on your favorite items.</small>
+                <button class="btn btn-warning text-white" style="width: 121px; height: 40px; font-size: 12px;">SHOP NOW</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="sale-section">
+              <img src="/assets/images/sale.png" alt="" height="400">
+              <div class="overlay">
+                <h3>20% Off on T-Shirts</h3>
+                <small>Get the best deals on your favorite items.</small>
+                <button class="btn btn-warning text-white" style="width: 121px; height: 40px; font-size: 12px;">SHOP NOW</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <?php include 'footer.php'; ?>
 </body>
 </html>

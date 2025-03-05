@@ -58,3 +58,35 @@ body {
   font-size: 1rem;
   border-radius: 5px;
 }
+
+.sale-section {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.sale-section img {
+  width: 100%;
+  height: auto;
+}
+
+.sale-section .overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -10%);
+  text-align: center;
+  padding: 0 20px; 
+}
+
+.sale-section .overlay h3,
+.sale-section .overlay p,
+.sale-section .overlay button {
+  display: block;
+  margin: 10px 0;
+}
+
+.sale-section .overlay button {
+  margin-top: 30px;
+  margin-right: 180px;
+}
