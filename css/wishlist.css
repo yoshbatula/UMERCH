@@ -1,0 +1,40 @@
+
+.label-check-form {
+    position: relative;
+}
+.label-check-form img {
+    width: 100%;
+    height: auto;
+}
+.label-check-form .overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -7%);
+    text-align: center;
+    color: white;
+    /* border: 2px solid gray; */
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 20rem;
+    height: 91px;
+    justify-content: center;
+}
+.overlay p{
+    margin-bottom: 5px;
+    margin-top: 12px;
+}
+
+.overlay h6 {
+    font-size: 11px;
+    font-weight: 50;
+    font-family: 'Cormorant Garamond' sans-serif;
+}
+
+.footer p {
+    font-size: 0.875rem;
+}
+
+svg {
+    height: 20px;
+}
