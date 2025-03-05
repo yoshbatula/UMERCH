@@ -92,7 +92,6 @@
       </div>
     </div>
 
-
     <div class="container-featured">
       <div class="con">
         <div class="bar-featured">

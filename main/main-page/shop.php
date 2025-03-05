@@ -91,9 +91,9 @@
 </section>
 <section>
     <div class="container mt-3">
-        <div class="row">
-            <div class="col-md-3 mb-3">
-                <div class="card custom-card-height" style="width: 17rem;">
+        <div class="row g-3">
+            <div class="col-md-3">
+                <div class="card custom-card-height" style="width: 100%;">
                     <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
                     <div class="card-body">
                         <h5 class="card-title">UM CCE ESPORTS</h5>
@@ -106,8 +106,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
-                <div class="card custom-card-height" style="width: 17rem;">
+            <div class="col-md-3">
+                <div class="card custom-card-height" style="width: 100%;">
                     <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
                     <div class="card-body">
                         <h5 class="card-title">UM CCE ESPORTS</h5>
@@ -120,9 +120,8 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-3 mb-3">
-                <div class="card custom-card-height" style="width: 17rem;">
+            <div class="col-md-3">
+                <div class="card custom-card-height" style="width: 100%;">
                     <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
                     <div class="card-body">
                         <h5 class="card-title">UM CCE ESPORTS</h5>
@@ -135,8 +134,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
-                <div class="card custom-card-height" style="width: 17rem;">
+            <div class="col-md-3">
+                <div class="card custom-card-height" style="width: 100%;">
                     <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
                     <div class="card-body">
                         <h5 class="card-title">UM CCE ESPORTS</h5>
@@ -155,7 +154,7 @@
 <section>
     <nav class="container" aria-label="Page navigation example">
         <hr>
-        <ul class="mt-4 pagination justify-content-center">
+        <ul class="mt-5 pagination justify-content-center">
             <li class="page-item">
                 <a class="page-link" href="#" tabindex="-1"><-</a>
             </li>
