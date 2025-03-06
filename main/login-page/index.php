@@ -68,6 +68,7 @@ if (isset($_POST['login'])) {
 
     $stmt->close();
     $connection->close();
+    session_destroy();
 }
 ?>
 

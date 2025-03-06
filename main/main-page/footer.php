@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/shop.css">
 </head>
 <body>
-<footer class="footer bg-light text-dark py-5 mt-5">
+<footer class="footer bg-light text-dark py-5">
     <div class="container">
         <div class="row">
             <!-- Menu Section -->

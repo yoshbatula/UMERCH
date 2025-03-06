@@ -298,13 +298,53 @@
         </div>
       </div>
       <div class="container mt-5">
-        <div class="d-flex flex-row justify-between text-center">
-            <div class="col-md-4">
-                <img src="/assets/images/quality-1.png" alt="">
-                <h3>Campus Delivery</h3>
+        <div class="quality-section">
+            <div class="row justify-content-between text-center">
+                <div class="col-md-3">
+                    <img src="/assets/images/quality-1.png" alt="Campus Delivery">
+                    <h6>Campus Delivery</h6>
+                    <p>Lorem ipsum dolor sit amet.</p>
+                    <p>Consecutor. Edget sed sapien</p>
+                    <p>Quisque et suspendisse.</p>
+                </div>
+                <div class="col-md-3">
+                    <img src="/assets/images/quality-2.png" alt="Campus Delivery">
+                    <h6>Best Quality</h6>
+                    <p>Lorem ipsum dolor sit amet.</p>
+                    <p>Consecutor. Edget sed sapien</p>
+                    <p>Quisque et suspendisse.</p>
+                </div>
+                <div class="col-md-3">
+                    <img src="/assets/images/quality-3.png" alt="Campus Delivery">
+                    <h6>Best Offers</h6>
+                    <p>Lorem ipsum dolor sit amet.</p>
+                    <p>Consecutor. Edget sed sapien</p>
+                    <p>Quisque et suspendisse.</p>
+                </div>
+                <div class="col-md-3">
+                    <img src="/assets/images/quality-4.png" alt="Campus Delivery">
+                    <h6>Secure Payments</h6>
+                    <p>Lorem ipsum dolor sit amet.</p>
+                    <p>Consecutor. Edget sed sapien</p>
+                    <p>Quisque et suspendisse.</p>
+                </div>
             </div>
         </div>
       </div>
+    </section>
+    <section>
+        <div class="d-flex flex-column">
+            <div class="explore-container">
+                <div class="overlay">
+                    <small id="header">Explore</small>
+                    <h1 id="header1">Elevate your fashion, embrace</h1>
+                    <h1 id="header2">UM Timeless Style!</h1>
+                    <small>Explore our collection today and experience the joy of fashion.</small>
+                    <small>Shop now for the ultimate casual style!</small>
+                    <button class="btn-featured btn text-white" style="font-size: 12px;" id="btn">SHOP NOW</button>
+                </div>
+            </div>
+        </div>
     </section>
     <?php include 'footer.php'; ?>
 </body>
