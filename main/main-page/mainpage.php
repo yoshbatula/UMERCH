@@ -6,6 +6,9 @@
   <title>LANDING PAGE</title>
   <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/mainpage.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <?php include 'navigation.php'; ?>
@@ -275,6 +278,30 @@
                       </div>
                   </div>
               </div>
+            </div>
+        </div>
+      </div>  
+      <div class="d-flex mt-5">
+        <div class="quotes-container">
+                <div class="overlay">
+                    <div class="d-flex flex-row ml-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#FFB600" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2L9.19 8.62L2 9.24l5.45 4.73L5.82 21z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#FFB600" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2L9.19 8.62L2 9.24l5.45 4.73L5.82 21z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#FFB600" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2L9.19 8.62L2 9.24l5.45 4.73L5.82 21z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#FFB600" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2L9.19 8.62L2 9.24l5.45 4.73L5.82 21z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#FFB600" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2L9.19 8.62L2 9.24l5.45 4.73L5.82 21z"/></svg>
+                    </div>
+                    <p>"I recently purchased a cozy sweater from the Casual & Everyday</p>
+                    <p class="mb-2">collection. It is both comfortable and stylish, perfectly capturing the spirit of our campus."</p>
+                    <small>MARIA L., UM STUDENT</small>
+                </div>
+        </div>
+      </div>
+      <div class="container mt-5">
+        <div class="d-flex flex-row justify-between text-center">
+            <div class="col-md-4">
+                <img src="/assets/images/quality-1.png" alt="">
+                <h3>Campus Delivery</h3>
             </div>
         </div>
       </div>

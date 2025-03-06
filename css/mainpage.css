@@ -1,13 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  -ms-overflow-style: style;
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .hero-section {
   position: relative;
   width: 100%;
-  height: 100vh; 
+  height: 100vh;
   background: url('/assets/images/background-landingpage.png') no-repeat center center/cover;
   display: flex;
   align-items: center;
@@ -27,7 +45,7 @@ body {
 
 .overlay {
   position: relative;
-  z-index: 2; 
+  z-index: 2;
   max-width: 800px;
   padding: 20px;
 }
@@ -76,7 +94,7 @@ body {
   left: 50%;
   transform: translate(-50%, -10%);
   text-align: center;
-  padding: 0 20px; 
+  padding: 0 20px;
 }
 
 .sale-section .overlay h3,
@@ -174,4 +192,35 @@ hr {
 .limited-time-offer .overlay button {
   display: block;
   margin: 10px 0;
+}
+
+.quotes-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url('/assets/images/review.png') no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.quotes-container .overlay {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 20px;
+}
+.quotes-container p {
+  font-size: 18px;
+}
+.quotes-container svg {
+  transform: translateX(900%);
+}
+
+svg {
+  color: #FFB600;
 }
