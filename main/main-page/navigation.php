@@ -24,9 +24,9 @@
                 </div>
 
                 <ul class="nav-menu">
-                    <li class="nav-item"><a href="#">HOME</a></li>
-                    <li class="nav-item"><a href="#">WISHLIST</a></li>
-                    <li class="nav-item"><a href="#">SHOP</a></li>
+                    <li class="nav-item"><a href="mainpage.php">HOME</a></li>
+                    <li class="nav-item"><a href="wishlist.php">WISHLIST</a></li>
+                    <li class="nav-item"><a href="shop.php">SHOP</a></li>
                     <li class="nav-item"><a href="#">ABOUT US</a></li>
                     <li class="nav-item"><a href="#">CONTACT US</a></li>
                 </ul>
@@ -47,6 +47,15 @@
     </header>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+      const navLinks = document.querySelectorAll('.nav-item a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          navLinks.forEach(nav => nav.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+    });
         $(document).ready(function() {
             $('.hamburger').click(function() {
                 $('.nav-menu').toggleClass('active');

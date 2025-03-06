@@ -333,14 +333,14 @@
       </div>
     </section>
     <section>
-        <div class="d-flex flex-column">
+    <div class="d-flex flex-column">
             <div class="explore-container">
                 <div class="overlay">
                     <small id="header">Explore</small>
                     <h1 id="header1">Elevate your fashion, embrace</h1>
                     <h1 id="header2">UM Timeless Style!</h1>
-                    <small>Explore our collection today and experience the joy of fashion.</small>
-                    <small>Shop now for the ultimate casual style!</small>
+                    <small id="text1">Explore our collection today and experience the joy of fashion.</small>
+                    <small id="text2">Shop now for the ultimate casual style!</small>
                     <button class="btn-featured btn text-white" style="font-size: 12px;" id="btn">SHOP NOW</button>
                 </div>
             </div>
