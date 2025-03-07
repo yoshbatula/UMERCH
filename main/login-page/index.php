@@ -1,5 +1,56 @@
 <?php
-    session_start();
+session_start();
+
+include '/xampp/htdocs/UMERCH/database/dbconnect.php';
+
+$error_message = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+    $userInput = trim($_POST['email']);
+    $password = $_POST['password'];
+
+    if (empty($userInput) || empty($password)) {
+        $error_message = "Please fill in all fields";
+    } else {
+        try {
+            $query = "SELECT * FROM users WHERE (user_email = ? OR user_id = ?)";
+            $stmt = $connection->prepare($query);
+            $stmt->bind_param("ss", $userInput, $userInput);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                $user = $result->fetch_assoc();
+                if ($password === $user['user_password']) { 
+                    
+                    $_SESSION['user_id'] = $user['user_id'];
+                    $_SESSION['user_email'] = $user['user_email'];
+                    $_SESSION['user_role'] = $user['user_role'] ?? 'user';
+                    
+                    if (isset($_POST['remember'])) {
+                        setcookie("user_login", $user['user_id'], time() + (30 * 24 * 60 * 60), "/");
+                    }
+
+                    header("Location: ../main-page/mainpage.php");
+                    exit();
+                } else {
+                    $error_message = "Incorrect password";
+                }
+            } else {
+                $error_message = "User not found";
+            }
+            $stmt->close();
+        } catch (Exception $e) {
+            $error_message = "An error occurred. Please try again later.";
+            error_log("Login error: " . $e->getMessage());
+        }
+    }
+}
+
+if (isset($_SESSION['user_id'])) {
+    header("Location: ../main-page/mainpage.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,11 +68,16 @@
     <div class="container">
         <img src="/assets/images/logo.png" alt="" class="um-logo">
         <div class="login-box">
-            <form action="/main/login-page/index.php" method="POST">
+            <?php if (!empty($error_message)): ?>
+                <div class="error-message">
+                    <?php echo htmlspecialchars($error_message); ?>
+                </div>
+            <?php endif; ?>
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                 <h1>LOGIN</h1>
                 <div class="login-container">
                     <div class="input_box">
-                        <input type="text" class="input-field" placeholder="e.g @umindanao.edu.ph" name="email" required>
+                        <input type="text" class="input-field" placeholder="e.g @umindanao.edu.ph" name="email" required value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
                         <i class="fa-solid fa-user icon"></i>
                     </div>
                     <div class="input_box">
@@ -29,13 +85,13 @@
                         <i class="fa-solid fa-lock icon"></i>
                     </div>
                     <div class="remember-forgot">
-                    <div class="remember-me">
-                        <input type="checkbox" id="remember" name="remember">
-                        <label for="remember">Remember me</label>
-                    </div>
-                    <div class="forgot-password">
-                        <a href="#">Forgot Password?</a>
-                    </div>
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">Remember me</label>
+                        </div>
+                        <div class="forgot-password">
+                            <a href="#">Forgot Password?</a>
+                        </div>
                     </div>
                     <div class="input_box">
                         <input class="input-submit" type="submit" value="LOGIN" name="login">
@@ -44,34 +100,5 @@
             </form>
         </div>
     </div>
-    <?php
-
-include '/xampp/htdocs/UMERCH/database/dbconnect.php';
-
-if (isset($_POST['login'])) {
-    $userInput = $_POST['email']; 
-    $password = $_POST['password'];
-
-    $query = "SELECT * FROM users WHERE (user_email = ? OR user_id = ?) AND user_password = ?";
-    $stmt = $connection->prepare($query);
-    $stmt->bind_param("sss", $userInput, $userInput, $password);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $_SESSION['user'] = $result->fetch_assoc(); 
-        header("Location: ../main-page/mainpage.php"); 
-        exit();
-    } else {
-        echo "<script>alert('Incorrect password or username');</script>";
-    }
-
-    $stmt->close();
-    $connection->close();
-    session_destroy();
-}
-?>
-
-
 </body>
 </html>

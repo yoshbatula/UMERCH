@@ -1,0 +1,137 @@
+.cart-header {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.cart-header span {
+    padding: 10px 20px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+.cart-header .active {
+    border-color: black;
+    font-size: 24px;
+}
+.table img {
+    width: 80px;
+    height: auto;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 5px;
+}
+.quantity-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background-color: black;
+}
+.quantity-box input {
+    width: 40px;
+    padding: 0;
+    height: 30px;
+    text-align: center;
+    justify-content: center;
+}
+.remove-icon {
+    color: black;
+    cursor: pointer;
+}
+
+.quantity-box input.form-control {
+    width: 50px !important;  /* Adjust width */
+    height: 35px;
+    padding: 0;
+    text-align: center;
+    display: inline-block !important; /* Ensure inline display */
+    margin: 0 10px !important;
+    border: none;
+}
+
+.remove-btn {
+    border: none;
+    background-color: transparent; /* Removes default button styles */
+    padding: 5px;
+}
+
+.remove-btn i {
+    font-size: 18px;
+    color: black; /* Make the trash icon red */
+    cursor: pointer; /* Ensure it looks clickable */
+}
+
+
+.main-container {
+    display: flex;
+    justify-content: space-between; /* Ensures spacing between left and right sections */
+    align-items: flex-start; /* Aligns elements at the top */
+    gap: 20px; /* Adds space between elements */
+}
+
+.cart-section {
+    flex: 2; /* Takes more space */
+}
+
+
+.cart-actions {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.cart-actions .update-cart, .cart-actions .continue-shopping {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    font-weight: bold;
+}
+
+.coupon-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+
+.coupon-box input{
+    flex: 1; /* Makes the input take all available space */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.apply-coupon {
+    flex: none;
+    width: auto;
+    padding: 10px 15px;
+    background-color: #222;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.cart-footer {
+    flex: 1; /* Smaller width for Cart Totals */
+    border: 1px solid #ddd; /* Optional: Adds border */
+    padding: 20px;
+}
+
+.cart-footer h3 {
+    text-align: center;
+}
+
+.cart-footer .checkout {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    font-weight: bold;
+    align-items: center;
+}
