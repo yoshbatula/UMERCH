@@ -116,7 +116,7 @@
 <section>
     <nav class="container" aria-label="Page navigation example">
         <hr>
-        <ul class="mt-5 pagination justify-content-center">
+        <ul class="mt-3 pagination justify-content-center">
             <li class="page-item">
                 <a class="page-link" href="#" tabindex="-1"><-</a>
             </li>

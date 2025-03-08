@@ -51,7 +51,7 @@
               <div class="overlay">
                 <h3>20% Off on T-Shirts</h3>
                 <small>Get the best deals on your favorite items.</small>
-                <button class="btn-featured btn text-white" style="font-size: 12px;">SHOP NOW</button>
+                <button class="btn-featured btn text-white" style="font-size: 12px;" onclick="location.href='shop.php'">SHOP NOW</button>
               </div>
             </div>
           </div>
@@ -61,7 +61,7 @@
               <div class="overlay">
                 <h3>20% Off on T-Shirts</h3>
                 <small>Get the best deals on your favorite items.</small>
-                <button class="btn-featured btn text-white" style="font-size: 12px;">SHOP NOW</button>
+                <button class="btn-featured btn text-white" style="font-size: 12px;" onclick="location.href='shop.php'">SHOP NOW</button>
               </div>
             </div>
           </div>
@@ -71,7 +71,7 @@
               <div class="overlay">
                 <h3>20% Off on T-Shirts</h3>
                 <small>Get the best deals on your favorite items.</small>
-                <button class="btn-featured btn text-white" style="font-size: 12px;">SHOP NOW</button>
+                <button class="btn-featured btn text-white" style="font-size: 12px;" onclick="location.href='shop.php'">SHOP NOW</button>
               </div>
             </div>
           </div>
@@ -213,7 +213,7 @@
               <small class="mb-4">bibendum ipsum ligula sit velit nibh.</small>
               <h5>Buy T-shirt at 20% Discount,</h5>
               <h5 class="mb-4">Use Code OFF20</h5>
-              <button class="btn-featured btn text-white" style="font-size: 12px;">SHOP NOW</button>
+              <button class="btn-featured btn text-white" style="font-size: 12px;" onclick="location.href='shop.php'">SHOP NOW</button>
             </div>
         </div>
       </div>
@@ -342,7 +342,7 @@
                     <h1 id="header2">UM Timeless Style!</h1>
                     <small id="text1">Explore our collection today and experience the joy of fashion.</small>
                     <small id="text2">Shop now for the ultimate casual style!</small>
-                    <button class="btn-featured btn text-white" style="font-size: 12px;" id="btn">SHOP NOW</button>
+                    <button class="btn-featured btn text-white" style="font-size: 12px;" onclick="location.href='shop.php'">SHOP NOW</button>
                 </div>
             </div>
         </div>
