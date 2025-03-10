@@ -68,11 +68,6 @@ if (isset($_SESSION['user_id'])) {
     <div class="container">
         <img src="/assets/images/logo.png" alt="" class="um-logo">
         <div class="login-box">
-            <?php if (!empty($error_message)): ?>
-                <div class="error-message">
-                    <?php echo htmlspecialchars($error_message); ?>
-                </div>
-            <?php endif; ?>
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                 <h1>LOGIN</h1>
                 <div class="login-container">
@@ -96,6 +91,11 @@ if (isset($_SESSION['user_id'])) {
                     <div class="input_box">
                         <input class="input-submit" type="submit" value="LOGIN" name="login">
                     </div>
+                    <?php if (!empty($error_message)): ?>
+                    <div class="error-message text-white mt-3">
+                        <?php echo htmlspecialchars($error_message); ?>
+                    </div>
+            <?php endif; ?>
                 </div>
             </form>
         </div>
