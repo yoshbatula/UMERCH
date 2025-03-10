@@ -1,0 +1,129 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+}
+
+.sidebar {
+    background-color: #BE0002;
+    min-height: 100vh;
+    width: 250px; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: white;
+    padding-top: 20px;
+}
+
+.sidebar-expanded {
+    width: 250px;
+}
+
+.logo-container {
+    padding: 0 15px;
+    margin-bottom: 30px;
+}
+
+.admin-profile {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.nav-item {
+    margin-bottom: 15px;
+    padding: 10px 15px;
+}
+
+.nav-item.active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link {
+    color: white;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.nav-link i {
+    margin-right: 15px;
+    font-size: 1.2rem;
+}
+
+.main-content {
+    margin-left: 250px; 
+}
+
+.topbar {
+    background-color: #BE0002;
+    padding: 15px 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-dropdown {
+    cursor: pointer;
+}
+
+.product-list-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 70px);
+}
+
+.product-list-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.product-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.edit-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.pagination {
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.footer {
+    text-align: center;
+    padding: 15px;
+    color: #6c757d;
+    background-color: #f8f9fa;
+    font-size: 0.8rem;
+}
+
+.add-product-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}

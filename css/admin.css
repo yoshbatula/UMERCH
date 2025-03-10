@@ -6,6 +6,21 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+::-webkit-scrollbar {
+    display: none;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
 #navigation {
     background-color: #BE0002;
     height: 100vh;
@@ -15,13 +30,38 @@
 .dropdown-menu {
     background-color: #BE0002; 
     border: none; 
-    min-width: 150px;
+    min-width: 150px; 
 }
 
 .dropdown-item {
     color: #ffffff; 
+    text-align: center;
+    position: relative; 
+    overflow: hidden; 
+    background-color: #BE0002; 
 }
 
+.dropdown-item::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffb600; 
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.dropdown-item:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.dropdown-item:hover {
+    background-color: #BE0002; 
+}
 
 .dropdown-toggle {
     border: none;
@@ -32,3 +72,32 @@
 .dropdown-toggle::after {
     display: none;
 }
+
+.admin {
+    background-color: #BE0002;
+    height: 100vh;
+    width: 15%;
+}
+
+.admin-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffb600; 
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.admin-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.admin-link:hover {
+    background-color: #BE0002; 
+}
+
