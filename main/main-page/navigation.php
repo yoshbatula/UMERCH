@@ -14,6 +14,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <header class="header">
@@ -22,7 +24,7 @@
                 <div class="brand-logo">
                     <a href="#">
                         <!-- Updated logo alt text -->
-                        <img src="/assets/images/logo.png" alt="UMerch Logo">
+                        <img src="/assets/images/logo.png" alt="UMerch Logo" class="ms-3">
                     </a>
                 </div>
 
@@ -36,11 +38,20 @@
             </div>
 
             <div class="nav-actions">
-                <!-- Added proper href attributes to buttons -->
+               
                 <a href="cart.php" class="icon-btn"><img src="/assets/images/cart-icon.png" alt="Cart"></a>
-                <span id="cart-count"><?= isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0 ?></span>
+                <span class="text-white" id="cart-count"><?= isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0 ?></span>
+                
                 <a href="notifications.php" class="icon-btn"><img src="/assets/images/notif-icon.png" alt="Notifications"></a>
-                <a href="profile.php" class="icon-btn"><img src="/assets/images/profile-icon.png" alt="Profile"></a>
+                
+                <div class="dropdown">
+                    <a href="#" class="icon-btn dropdown-toggle" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="/assets/images/profile-icon.png" alt="Profile">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                        <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                    </ul>
+                </div>
             </div>
 
             <button class="hamburger" aria-label="Toggle navigation">
