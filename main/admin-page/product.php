@@ -242,7 +242,7 @@
                                 <td><?php echo $product['Stock']; ?></td>
                                 <td><?php echo $product['Product_Type']; ?></td>
                                 <td>
-                                    <button class="edit-btn btn btn-warning" data-bs-toggle="modal" data-bs-target="#editProductModal" data-id="<?php echo $product['Product_ID']; ?>" data-name="<?php echo $product['Product_Name']; ?>" data-type="<?php echo $product['Product_Type']; ?>" data-price="<?php echo $product['Unit_Price']; ?>" data-stock="<?php echo $product['Stock']; ?>">Edit</button>
+                                    <button class="edit-btn btn btn-warning" data-bs-toggle="modal" data-bs-target="#editProductModal" data-id="<?php echo $product['Product_ID']; ?>" data-name="<?php echo $product['Product_Name']; ?>" data-type="<?php echo $product['Product_Type']; ?>" data-price="<?php echo $product['Unit_Price']; ?>" data-stock="<?php echo $product['Stock']; ?>">Update</button>
                                     <button class="delete-btn btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal"data-id="<?php echo $product['Product_ID']; ?>">Delete</button>
                                 </td>
                             </tr>
@@ -308,7 +308,7 @@
                             <label for="productImage" class="form-label">Product Image</label>
                             <input type="file" class="form-control" id="productImage" name="productImage" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Add Product</button>
+                        <button type="submit" class="btn btn-success">Add Product</button>
                     </form>
                 </div>
             </div>

@@ -54,7 +54,10 @@ if (isset($_GET['added']) && $_GET['added'] == 1) {
 <!-- HEADER IMAGE -->
 <div class="d-flex">
     <div class="label-check-form text-center">
+        <div class="img-oten">
         <img src="/assets/images/headerimg.png" alt="">
+        </div>
+        
         <div class="overlay justify-content-center">
             <p>PRODUCT LIST</p>
             <h6>HOME / SHOP</h6>

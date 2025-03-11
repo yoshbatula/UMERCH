@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                         setcookie("user_login", $user['user_id'], time() + (30 * 24 * 60 * 60), "/");
                     }
 
-                    header("Location: ../landing-page/index.php");
+                    header("Location: ../main-page/mainpage.php");
                     exit();
                 } else {
                     $error_message = "Incorrect password.";

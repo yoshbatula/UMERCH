@@ -219,7 +219,7 @@ $result = mysqli_query($connection, $query);
                     <h1 id="header2">UM Timeless Style!</h1>
                     <small id="text1">Explore our collection today and experience the joy of fashion.</small>
                     <small id="text2">Shop now for the ultimate casual style!</small>
-                    <button class="btn-featured btn text-white" style="font-size: 12px;" onclick="location.href='shop.php'">SHOP NOW</button>
+                    <button class="btn-featured btn text-white" style="font-size: 12px; transform: translateX(275px);" onclick="location.href='shop.php'">SHOP NOW</button>
                 </div>
             </div>
         </div>
