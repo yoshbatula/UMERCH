@@ -70,34 +70,30 @@
             </div>
         </div>
             
-        <div class="row">
-            <div class="col-md-3">
-                <div class="stat-card blue-card ms-4 mt-4">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <small class="d-block text-white">TOTAL SALES</small>
-                            <h3 class="mt-1 text-white">$5,74.12</h3>
-                        </div>
+        <div class="stats-row mt-4">
+            <div class="stat-card blue-card">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <small class="d-block text-white">TOTAL SALES</small>
+                        <h3 class="mt-1 text-white">$5,74.12</h3>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="stat-card red-card ms-4 mt-4">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <small class="d-block text-white">TOTAL USERS</small>
-                            <h3 class="mt-1 text-white">$5,74.12</h3>
-                        </div>
+            
+            <div class="stat-card red-card">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <small class="d-block text-white">TOTAL USERS</small>
+                        <h3 class="mt-1 text-white">$5,74.12</h3>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="stat-card green-card ms-4 mt-4">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <small class="d-block text-white">TODAY SALES</small>
-                            <h3 class="mt-1 text-white">$5,74.12</h3>
-                        </div>
+            
+            <div class="stat-card green-card">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <small class="d-block text-white">TODAY SALES</small>
+                        <h3 class="mt-1 text-white">$5,74.12</h3>
                     </div>
                 </div>
             </div>
@@ -126,9 +122,10 @@
                                 <thead>
                                     <tr>
                                         <th>ORDER ID</th>
-                                        <th>ID</th>
+                                        <th>PAYMENT ID</th>
+                                        <th>USER ID</th>
                                         <th>ORDER DATE</th>
-                                        <th>STATUS</th>
+                                        <th>TOTAL</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -137,18 +134,21 @@
                                         <td>1</td>
                                         <td>Mar 10, 2025</td>
                                         <td><span class="badge bg-success">Completed</span></td>
+                                        <td>150</td>
                                     </tr>
                                     <tr>
                                         <td>ORD-002</td>
                                         <td>2</td>
                                         <td>Mar 11, 2025</td>
                                         <td><span class="badge bg-warning text-dark">Pending</span></td>
+                                        <td>150</td>
                                     </tr>
                                     <tr>
                                         <td>ORD-003</td>
                                         <td>3</td>
                                         <td>Mar 12, 2025</td>
                                         <td><span class="badge bg-info">Processing</span></td>
+                                        <td>150</td>
                                     </tr>
                                 </tbody>
                             </table>
