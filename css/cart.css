@@ -3,45 +3,88 @@
     justify-content: center;
     gap: 30px;
     font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-.cart-header span {
-    padding: 10px 20px;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-}
-.cart-header .active {
+    margin-bottom: 50px;
+  }
+  .cart-header span {
+    border: 1px solid #ccc;
+    height: 60px;
+    line-height: 50px;
+    width: 370px;
+    text-align: center;
+  }
+  
+  
+  .cart-header span.step-number {
+    font-size: 28px;
+    border: none;
+  }
+  
+  
+  .cart-header span.step-text {
+    font-size: 20px;
+    border: none;
+  }
+  
+  
+  span.active {
+    border: none;
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.2);
+    height: 60px;
+    line-height: 50px;
+    width: 370px;
+  }
+  
+  
+  .cart-header .active {
     border-color: black;
     font-size: 24px;
-}
-.table img {
+  }
+  
+  
+  .cart-header .inactive {
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s ease, box-shadow 0.3s ease;
+  }
+  
+  
+  .inactive:hover {
+    border: none;
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.2);
+    height: 60px;
+    line-height: 50px;
+    width: 370px;
+  }
+  
+  
+  .table img {
     width: 80px;
     height: auto;
     border: 1px solid #ddd;
     padding: 5px;
     border-radius: 5px;
-}
-.quantity-box {
+  }
+  
+  
+  .quantity-box {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
     background-color: black;
-}
-.quantity-box input {
+  }
+  
+  
+  .quantity-box input {
     width: 40px;
     padding: 0;
     height: 30px;
     text-align: center;
     justify-content: center;
-}
-.remove-icon {
-    color: black;
-    cursor: pointer;
-}
-
-.quantity-box input.form-control {
+  }
+  
+  
+  .quantity-box input.form-control {
     width: 50px !important;  /* Adjust width */
     height: 35px;
     padding: 0;
@@ -49,65 +92,103 @@
     display: inline-block !important; /* Ensure inline display */
     margin: 0 10px !important;
     border: none;
-}
-
-.remove-btn {
+  }
+  
+  
+  .remove-btn {
     border: none;
     background-color: transparent; /* Removes default button styles */
     padding: 5px;
-}
-
-.remove-btn i {
+    transition: background-color 0.3s ease, color 0.2s ease;
+  }
+  
+  
+  .remove-btn:hover {
+    background-color: #be0002;
+  }
+  
+  
+  .remove-btn i {
     font-size: 18px;
     color: black; /* Make the trash icon red */
     cursor: pointer; /* Ensure it looks clickable */
-}
-
-
-.main-container {
+  }
+  
+  
+  
+  
+  .main-container {
     display: flex;
     justify-content: space-between; /* Ensures spacing between left and right sections */
     align-items: flex-start; /* Aligns elements at the top */
     gap: 20px; /* Adds space between elements */
-}
-
-.cart-section {
+  }
+  
+  
+  .cart-section {
     flex: 2; /* Takes more space */
-}
-
-
-.cart-actions {
+  }
+  
+  
+  
+  
+  .cart-actions {
     display: flex;
     justify-content: center;
     gap: 5px;
     margin-bottom: 20px;
-}
-
-.cart-actions .update-cart, .cart-actions .continue-shopping {
-    background-color: black;
-    color: white;
+  }
+  
+  
+  .btn-outline-secondary {
+    border-color: #6c757d; /* Default border color */
+    color: #6c757d; /* Default text color */
+    transition: background-color 0.3s ease, color 0.2s ease; /* Smooth transition */
+  }
+  
+  
+  /* Hover effect */
+  .btn-outline-secondary:hover {
+    background-color: #be0002 !important; /* Change background color on hover */
+    color: white !important; /* Change text color on hover */
+    border-color: #be0002!important; /* Change border color */
+  }
+  
+  
+  .cart-actions .update-cart, .cart-actions .continue-shopping {
+    background-color: #222;
+    color: #fff;
     border: none;
     padding: 7px 12px;
-    font-weight: bold;
-}
-
-.coupon-box {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  
+  .cart-actions .update-cart:hover, .cart-actions .continue-shopping:hover {
+    background-color: #be0002;
+  }
+  
+  
+  .coupon-box {
     display: flex;
     flex-direction: column;
     gap: 10px;
     border: 1px solid #ddd;
     padding: 20px;
-}
-
-
-.coupon-box input{
+  }
+  
+  
+  
+  
+  .coupon-box input{
     flex: 1; /* Makes the input take all available space */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-}
-
-.apply-coupon {
+  }
+  
+  
+  .coupon-box .apply-coupon {
     flex: none;
     width: auto;
     padding: 10px 15px;
@@ -115,23 +196,50 @@
     color: #fff;
     border: none;
     cursor: pointer;
-}
-
-.cart-footer {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  
+  .coupon-box .apply-coupon:hover {
+    background-color: #be0002;
+  }
+  
+  
+  .cart-footer {
     flex: 1; /* Smaller width for Cart Totals */
     border: 1px solid #ddd; /* Optional: Adds border */
     padding: 20px;
-}
-
-.cart-footer h3 {
+  }
+  
+  
+  .cart-footer h3 {
     text-align: center;
-}
-
-.cart-footer .checkout {
-    background-color: black;
-    color: white;
+  }
+  
+  .checkout-div {
+    display: flex;
+    justify-content: center;
+  }
+  .checkout {
+    background-color: #222;
+    color: #fff;
     border: none;
     padding: 7px 12px;
-    font-weight: bold;
     align-items: center;
-}
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  
+  .checkout:hover {
+    background-color: #be0002;
+  }
+  
+  
+  .cart-footer .total {
+    font-size: 20px;
+  }
+  
+  
+  .cart-footer p span, .cart-footer p select {
+    float: right;
+  }
