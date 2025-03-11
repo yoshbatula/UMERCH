@@ -25,7 +25,7 @@ $result = mysqli_query($connection, $query);
             <small>CASUAL & EVERYDAY</small>
             <h1>Effortlessly combine comfort with campus style!</h1>
             <p>Discover our Casual & Everyday Collection at UMerch, where relaxed designs meet a refined university look.</p>
-            <button class="btn btn-dark text-white">VIEW COLLECTION</button>
+            <button class="btn btn-dark text-white" onclick="window.location.href='shop.php'">VIEW COLLECTION</button>
         </div>
     </div>
     <section>
