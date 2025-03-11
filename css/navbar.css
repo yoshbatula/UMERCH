@@ -26,11 +26,16 @@
 .navbar {
     display: flex;
     justify-content: space-between;
+    position: fixed;
     align-items: center;
     padding: clamp(0.5rem, 1vw, 1rem) clamp(1rem, 2vw, 2rem);
     background: var(--primary-color);
     height: 70px;
+    width: 100%; /* Added full width */
+    left: 0; /* Ensure it starts from the left edge */
+    top: 0; /* Ensure it's at the top */
 }
+
 
 .nav-container {
     display: flex;
