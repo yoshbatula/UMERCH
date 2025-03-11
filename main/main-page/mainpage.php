@@ -1,3 +1,10 @@
+<?php
+include '/xampp/htdocs/UMERCH/database/dbconnect.php';
+
+$query = "SELECT * FROM products";
+$result = mysqli_query($connection, $query);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,120 +92,26 @@
             <h1 style="font-size: 42px;">Featured Products</h1>
             <hr>
           </div>
-            <div class="row">
+          <div class="row">
+            <?php
+                $query = "SELECT * FROM products WHERE Product_Type = 'Clothing'";
+                $result = mysqli_query($connection, $query);
+                while ($row = mysqli_fetch_assoc($result)) { 
+            ?>
               <div class="col-md-3 mt-5">
-                  <div class="card custom-card-height" style="width: 100%;">
-                      <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
+                  <div class="card custom-card-height" style="width: 90%; height: 100%;">
+                      <img src="/assets/images/<?php echo $row['Image']; ?>" alt="<?php echo $row['Product_Name']; ?>" class="product-image thumbnail">
                       <div class="card-body">
-                          <h5 class="card-title">UM CCE ESPORTS</h5>
-                          <h5 class="card-title">JERSEY</h5>
+                          <h5 class="card-title"><?= $row['Product_Name'] ?></h5>
                           <small class="card-text">Men</small>
                           <div class="d-flex flex-row">
-                              <p class="card-text text-decoration-line-through text-danger">$150.00</p>
-                              <p class="card-text text-success">&nbsp;&nbsp;$120.00</p>
+                              <p class="card-text text-decoration-line-through text-danger">150</p>
+                              <p class="card-text text-success">&nbsp;&nbsp;<?= $row['Unit_Price'] ?></p>
                           </div>
                       </div>
                   </div>
               </div>
-              <div class="col-md-3 mt-5">
-                  <div class="card custom-card-height" style="width: 100%;">
-                      <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
-                      <div class="card-body">
-                          <h5 class="card-title">UM CCE ESPORTS</h5>
-                          <h5 class="card-title">JERSEY</h5>
-                          <small class="card-text">Men</small>
-                          <div class="d-flex flex-row">
-                              <p class="card-text text-decoration-line-through text-danger">$150.00</p>
-                              <p class="card-text text-success">&nbsp;&nbsp;$120.00</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-3 mt-5">
-                  <div class="card custom-card-height" style="width: 100%;">
-                      <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
-                      <div class="card-body">
-                          <h5 class="card-title">UM CCE ESPORTS</h5>
-                          <h5 class="card-title">JERSEY</h5>
-                          <small class="card-text">Men</small>
-                          <div class="d-flex flex-row">
-                              <p class="card-text text-decoration-line-through text-danger">$150.00</p>
-                              <p class="card-text text-success">&nbsp;&nbsp;$120.00</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-3 mt-5">
-                  <div class="card custom-card-height" style="width: 100%;">
-                      <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
-                      <div class="card-body">
-                          <h5 class="card-title">UM CCE ESPORTS</h5>
-                          <h5 class="card-title">JERSEY</h5>
-                          <small class="card-text">Men</small>
-                          <div class="d-flex flex-row">
-                              <p class="card-text text-decoration-line-through text-danger">$150.00</p>
-                              <p class="card-text text-success">&nbsp;&nbsp;$120.00</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-3 mt-5">
-                  <div class="card custom-card-height" style="width: 100%;">
-                      <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
-                      <div class="card-body">
-                          <h5 class="card-title">UM CCE ESPORTS</h5>
-                          <h5 class="card-title">JERSEY</h5>
-                          <small class="card-text">Men</small>
-                          <div class="d-flex flex-row">
-                              <p class="card-text text-decoration-line-through text-danger">$150.00</p>
-                              <p class="card-text text-success">&nbsp;&nbsp;$120.00</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-3 mt-5">
-                  <div class="card custom-card-height" style="width: 100%;">
-                      <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
-                      <div class="card-body">
-                          <h5 class="card-title">UM CCE ESPORTS</h5>
-                          <h5 class="card-title">JERSEY</h5>
-                          <small class="card-text">Men</small>
-                          <div class="d-flex flex-row">
-                              <p class="card-text text-decoration-line-through text-danger">$150.00</p>
-                              <p class="card-text text-success">&nbsp;&nbsp;$120.00</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-3 mt-5">
-                  <div class="card custom-card-height" style="width: 100%;">
-                      <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
-                      <div class="card-body">
-                          <h5 class="card-title">UM CCE ESPORTS</h5>
-                          <h5 class="card-title">JERSEY</h5>
-                          <small class="card-text">Men</small>
-                          <div class="d-flex flex-row">
-                              <p class="card-text text-decoration-line-through text-danger">$150.00</p>
-                              <p class="card-text text-success">&nbsp;&nbsp;$120.00</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-3 mt-5">
-                  <div class="card custom-card-height" style="width: 100%;">
-                      <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
-                      <div class="card-body">
-                          <h5 class="card-title">UM CCE ESPORTS</h5>
-                          <h5 class="card-title">JERSEY</h5>
-                          <small class="card-text">Men</small>
-                          <div class="d-flex flex-row">
-                              <p class="card-text text-decoration-line-through text-danger">$150.00</p>
-                              <p class="card-text text-success">&nbsp;&nbsp;$120.00</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
+            <?php } ?>
           </div>
         </div>
       </div>
@@ -224,62 +137,26 @@
             <hr>
           </div>
           <div class="row">
+            <?php
+              $query = "SELECT * FROM products WHERE Product_Type = 'Accessories'";
+              $result = mysqli_query($connection, $query);
+              while ($row = mysqli_fetch_assoc($result)) { 
+            ?>
               <div class="col-md-3 mt-5">
-                  <div class="card custom-card-height" style="width: 100%;">
+                  <div class="card custom-card-height" style="width: 100%;"> 
                       <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
                       <div class="card-body">
-                          <h5 class="card-title">UM Wooden</h5>
-                          <h5 class="card-title">Tumber</h5>
+                          <h5 class="card-title"><?= $row['Product_Name'] ?></h5>
+                          
                           <div class="d-flex flex-row">
-                              <p class="card-text text-decoration-line-through text-danger">$150.00</p>
-                              <p class="card-text text-success">&nbsp;&nbsp;$120.00</p>
+                              <p class="card-text text-decoration-line-through text-danger">150</p>
+                              <p class="card-text text-success">&nbsp;&nbsp;<?= $row['Unit_Price'] ?></p>
                           </div>
                       </div>
                   </div>
               </div>
-              <div class="col-md-3 mt-5">
-                  <div class="card custom-card-height" style="width: 100%;">
-                      <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
-                      <div class="card-body">
-                          <h5 class="card-title">UM CCE ESPORTS</h5>
-                          <h5 class="card-title">JERSEY</h5>
-                          <small class="card-text">Men</small>
-                          <div class="d-flex flex-row">
-                              <p class="card-text text-decoration-line-through text-danger">$150.00</p>
-                              <p class="card-text text-success">&nbsp;&nbsp;$120.00</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-3 mt-5">
-                  <div class="card custom-card-height" style="width: 100%;">
-                      <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
-                      <div class="card-body">
-                          <h5 class="card-title">UM CCE ESPORTS</h5>
-                          <h5 class="card-title">JERSEY</h5>
-                          <small class="card-text">Men</small>
-                          <div class="d-flex flex-row">
-                              <p class="card-text text-decoration-line-through text-danger">$150.00</p>
-                              <p class="card-text text-success">&nbsp;&nbsp;$120.00</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-3 mt-5">
-                  <div class="card custom-card-height" style="width: 100%;">
-                      <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
-                      <div class="card-body">
-                          <h5 class="card-title">UM CCE ESPORTS</h5>
-                          <h5 class="card-title">JERSEY</h5>
-                          <small class="card-text">Men</small>
-                          <div class="d-flex flex-row">
-                              <p class="card-text text-decoration-line-through text-danger">$150.00</p>
-                              <p class="card-text text-success">&nbsp;&nbsp;$120.00</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-            </div>
+            <?php } ?>
+          </div>
         </div>
       </div>  
       <div class="d-flex mt-5">

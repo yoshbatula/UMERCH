@@ -1,3 +1,40 @@
+<?php
+include '../../database/dbconnect.php';
+
+$query = "SELECT * FROM products";
+$result = mysqli_query($connection, $query);
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
+    $product_id = $_POST['product_id'];
+    
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
+    
+    if (!in_array($product_id, $_SESSION['cart'])) {
+        $_SESSION['cart'][] = $product_id;
+        
+        $product_query = "SELECT Product_ID, Product_Name, Unit_Price, Image FROM products WHERE Product_ID = $product_id";
+        $product_result = mysqli_query($connection, $product_query);
+        
+        if ($product = mysqli_fetch_assoc($product_result)) {
+    
+            $insert_query = "INSERT INTO carts (Product_ID, Unit_Price, Product_Name, Image) 
+                            VALUES ('{$product['Product_ID']}', '{$product['Unit_Price']}', 
+                            '{$product['Product_Name']}', '{$product['Image']}')";
+            
+            mysqli_query($connection, $insert_query);
+        }
+    }
+    
+    header("Location: " . $_SERVER['PHP_SELF'] . "?added=1");
+    exit();
+}
+
+if (isset($_GET['added']) && $_GET['added'] == 1) {
+    $message = "Product added to cart successfully!";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,62 +91,28 @@
 <section>
     <div class="container mt-3">
         <div class="row g-3">
-            <div class="col-md-3">
-                <div class="card custom-card-height" style="width: 100%;">
-                    <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
-                    <div class="card-body">
-                        <h5 class="card-title">UM CCE ESPORTS</h5>
-                        <h5 class="card-title">JERSEY</h5>
-                        <small class="card-text">Men</small>
-                        <div class="d-flex flex-row">
-                            <p class="card-text text-decoration-line-through text-danger">$150.00</p>
-                            <p class="card-text text-success">&nbsp;&nbsp;$120.00</p>
+            <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                <div class="col-md-3">
+                    <div class="card custom-card-height" style="width: 90%; height: 100%;">
+                        <img src="/assets/images/<?php echo $row['Image']; ?>" alt="<?php echo $row['Product_Name']; ?>" class="product-image" class="thumbnail">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $row['Product_Name'] ?></h5> 
+                            <small class="card-text">MEN</small>
+                            <div class="d-flex flex-row gap-2">
+                                <p class="card-text text-decoration-line-through text-danger">150</p> 
+                                <p class="card-text text-success">&nbsp;&nbsp;<?= $row['Unit_Price'] ?></p> 
+                            </div>
+                            <div class="d-flex flex-row ms-2">
+                                <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>">
+                                    <input type="hidden" name="product_id" value="<?= $row['Product_ID'] ?>">
+                                    <input type="submit" value="Add to Cart" class="btn btn-primary">
+                                </form>
+                                <a href="product.php?id=<?= $row['Product_ID'] ?>" class="btn btn-secondary ms-2">View</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card custom-card-height" style="width: 100%;">
-                    <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
-                    <div class="card-body">
-                        <h5 class="card-title">UM CCE ESPORTS</h5>
-                        <h5 class="card-title">JERSEY</h5>
-                        <small class="card-text">Men</small>
-                        <div class="d-flex flex-row">
-                            <p class="card-text text-decoration-line-through text-danger">$150.00</p>
-                            <p class="card-text text-success">&nbsp;&nbsp;$120.00</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card custom-card-height" style="width: 100%;">
-                    <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
-                    <div class="card-body">
-                        <h5 class="card-title">UM CCE ESPORTS</h5>
-                        <h5 class="card-title">JERSEY</h5>
-                        <small class="card-text">Men</small>
-                        <div class="d-flex flex-row">
-                            <p class="card-text text-decoration-line-through text-danger">$150.00</p>
-                            <p class="card-text text-success">&nbsp;&nbsp;$120.00</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card custom-card-height" style="width: 100%;">
-                    <img src="/assets/images/esports.jpg" class="card-img-top" alt="..." height="210">
-                    <div class="card-body">
-                        <h5 class="card-title">UM CCE ESPORTS</h5>
-                        <h5 class="card-title">JERSEY</h5>
-                        <small class="card-text">Men</small>
-                        <div class="d-flex flex-row">
-                            <p class="card-text text-decoration-line-through text-danger">$150.00</p>
-                            <p class="card-text text-success">&nbsp;&nbsp;$120.00</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php } ?>
         </div>
     </div>
 </section>
@@ -135,8 +138,27 @@
 <?php
     include 'footer.php';
 ?>
+<?php if (isset($_GET['added']) && $_GET['added'] == 1 && isset($_SESSION['added_product'])): ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            title: 'Added to Cart!',
+            text: '<?php echo $_SESSION['added_product']; ?> has been added to your cart',
+            icon: 'success',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            toast: true
+        });
+    });
+</script>
+<?php 
+    unset($_SESSION['added_product']); 
+endif; 
+?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
-
+</script>
 </body>
 </html>

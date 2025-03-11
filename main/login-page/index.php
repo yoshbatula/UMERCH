@@ -3,6 +3,10 @@ session_start();
 
 include '/xampp/htdocs/UMERCH/database/dbconnect.php';
 
+$admin_email = "admin";
+$admin_id = "123123";
+$admin_password = "admin";
+
 $error_message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
@@ -12,6 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     if (empty($userInput) || empty($password)) {
         $error_message = "Please fill in all fields";
     } else {
+        if ($userInput === $admin_email || $userInput === $admin_id && $password === $admin_password) {
+            $_SESSION['admin'] = true;
+            $_SESSION['user_email'] = $admin_email;
+            $_SESSION['user_id'] = $admin_id;
+
+            header("Location: ../admin-page/admin.php");    
+            exit();
+        }
+
         try {
             $query = "SELECT * FROM users WHERE (user_email = ? OR user_id = ?)";
             $stmt = $connection->prepare($query);
@@ -25,19 +38,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                     
                     $_SESSION['user_id'] = $user['user_id'];
                     $_SESSION['user_email'] = $user['user_email'];
-                    $_SESSION['user_role'] = $user['user_role'] ?? 'user';
                     
                     if (isset($_POST['remember'])) {
                         setcookie("user_login", $user['user_id'], time() + (30 * 24 * 60 * 60), "/");
                     }
 
-                    header("Location: ../main-page/mainpage.php");
+                    header("Location: ../landing-page/index.php");
                     exit();
                 } else {
-                    $error_message = "Incorrect password";
+                    $error_message = "Incorrect password.";
                 }
             } else {
-                $error_message = "User not found";
+                $error_message = "User not found.";
             }
             $stmt->close();
         } catch (Exception $e) {
@@ -50,7 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 if (isset($_SESSION['user_id'])) {
     header("Location: ../main-page/mainpage.php");
     exit();
+} elseif (isset($_SESSION['admin'])) {
+    header("Location: ../admin-page/admin.php");
+    exit();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,13 +82,18 @@ if (isset($_SESSION['user_id'])) {
 </head>
 <body>
     <div class="container">
-        <img src="/assets/images/logo.png" alt="" class="um-logo">
+        <img src="../images/logo.png" alt="" class="um-logo">
         <div class="login-box">
+            <?php if (!empty($error_message)): ?>
+                <div class="error-message">
+                    <?php echo htmlspecialchars($error_message); ?>
+                </div>
+            <?php endif; ?>
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                 <h1>LOGIN</h1>
                 <div class="login-container">
                     <div class="input_box">
-                        <input type="text" class="input-field" placeholder="e.g @umindanao.edu.ph" name="email" required value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
+                        <input type="text" class="input-field" placeholder="Enter Student ID Number or Email" name="email" required value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
                         <i class="fa-solid fa-user icon"></i>
                     </div>
                     <div class="input_box">
@@ -91,11 +112,6 @@ if (isset($_SESSION['user_id'])) {
                     <div class="input_box">
                         <input class="input-submit" type="submit" value="LOGIN" name="login">
                     </div>
-                    <?php if (!empty($error_message)): ?>
-                    <div class="error-message text-white mt-3">
-                        <?php echo htmlspecialchars($error_message); ?>
-                    </div>
-            <?php endif; ?>
                 </div>
             </form>
         </div>

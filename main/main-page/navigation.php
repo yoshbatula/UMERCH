@@ -1,3 +1,8 @@
+<?php
+    session_start();
+
+    include '../../database/dbconnect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,6 +38,7 @@
             <div class="nav-actions">
                 <!-- Added proper href attributes to buttons -->
                 <a href="cart.php" class="icon-btn"><img src="/assets/images/cart-icon.png" alt="Cart"></a>
+                <span id="cart-count"><?= isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0 ?></span>
                 <a href="notifications.php" class="icon-btn"><img src="/assets/images/notif-icon.png" alt="Notifications"></a>
                 <a href="profile.php" class="icon-btn"><img src="/assets/images/profile-icon.png" alt="Profile"></a>
             </div>
