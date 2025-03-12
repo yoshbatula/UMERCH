@@ -59,7 +59,7 @@
             $productType = $_POST['editProductType'];
             $unitPrice = $_POST['editUnitPrice'];
             $stockCount = $_POST['editStockCount'];
-            $productDescription = $_POST['editProductDescription'];
+            $productDescription1 = $_POST['editProductDescription'];
             if(isset($_FILES['editProductImage']) && $_FILES['editProductImage']['error'] == 0) {
                 $imageName = handleImageUpload($_FILES['editProductImage']);
                 
@@ -70,17 +70,17 @@
                         prodcut_price = ?, 
                         stock = ?,
                         product_image = ?
-                        WHERE Product_ID = ?";
+                        WHERE product_id = ?";
                 $stmt = $connection->prepare($sql);
-                $stmt->bind_param("ssdisis", $productName, $productType, $unitPrice, $stockCount, $imageName, $productId, $productDescription);
+                $stmt->bind_param("ssdisis", $productName, $productType, $unitPrice, $stockCount, $imageName, $productId, $productDescription1);
             } else {
                 $sql = "UPDATE products SET 
                         product_name = ?, 
                         product_description = ?,
                         product_type = ?, 
                         product_price = ?, 
-                        Stock = ?
-                        WHERE Product_ID = ?";
+                        stock = ?
+                        WHERE product_id = ?";
                 $stmt = $connection->prepare($sql);
                 $stmt->bind_param("ssdiis", $productName, $productType, $unitPrice, $stockCount, $productId, $productDescription);
             }
@@ -138,7 +138,7 @@
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $products[] = $row;
-        }
+        } 
     }
 ?>
 <!DOCTYPE html>
@@ -161,7 +161,7 @@
         
         <div class="admin-profile">
             <div class="profile-pic">
-                <img src="/assets/images/profile-icon.png" alt="Admin" class="rounded-circle" width="80">
+                <img src="/assets/images/profile-icon.png" alt="Admin" class="rounded-circle" width="50">
             </div>
             <div class="mt-2">
                 <h6 class="mb-0">Admin</h6>
@@ -406,12 +406,14 @@
                     const productType = this.getAttribute('data-type');
                     const unitPrice = this.getAttribute('data-price');
                     const stockCount = this.getAttribute('data-stock');
-                    
+                    const productDescription = this.getAttribute('data-description');
+
                     document.getElementById('editProductId').value = productId;
                     document.getElementById('editProductName').value = productName;
                     document.getElementById('editProductType').value = productType;
                     document.getElementById('editUnitPrice').value = unitPrice;
                     document.getElementById('editStockCount').value = stockCount;
+                    document.getElementById('editProductDescription').value = productDescription;
                 });
             });
 

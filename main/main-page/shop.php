@@ -14,17 +14,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
     if (!in_array($product_id, $_SESSION['cart'])) {
         $_SESSION['cart'][] = $product_id;
         
-        $product_query = "SELECT Product_ID, Product_Name, Unit_Price, Image FROM products WHERE Product_ID = $product_id";
+        $product_query = "SELECT product_id, product_name, product_price, Image FROM products WHERE product_id = $product_id";
         $product_result = mysqli_query($connection, $product_query);
-        
-        if ($product = mysqli_fetch_assoc($product_result)) {
+
+    if ($product = mysqli_fetch_assoc($product_result)) {
+        $insert_query = "INSERT INTO carts (id, product_id, product_name, product_image) 
+        VALUES ('{$product['product_id']}', '{$product['product_price']}', 
+        '{$product['product_name']}', '{$product['product_image']}')";
     
-            $insert_query = "INSERT INTO carts (Product_ID, Unit_Price, Product_Name, Image) 
-                            VALUES ('{$product['Product_ID']}', '{$product['Unit_Price']}', 
-                            '{$product['Product_Name']}', '{$product['Image']}')";
-            
-            mysqli_query($connection, $insert_query);
-        }
+    mysqli_query($connection, $insert_query);
+}
     }
     
     header("Location: " . $_SERVER['PHP_SELF'] . "?added=1");
@@ -47,6 +46,7 @@ if (isset($_GET['added']) && $_GET['added'] == 1) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/shop.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
 <!-- NAVIGATION -->
@@ -91,33 +91,66 @@ if (isset($_GET['added']) && $_GET['added'] == 1) {
         <hr>
     </div>
 </section>
-<section>
-    <div class="container mt-3">
-        <div class="row g-3">
-            <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-                <div class="col-md-3">
-                    <div class="card custom-card-height" style="width: 90%; height: 100%;">
-                        <img src="/assets/images/<?php echo $row['Image']; ?>" alt="<?php echo $row['Product_Name']; ?>" class="product-image" class="thumbnail">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $row['Product_Name'] ?></h5> 
-                            <small class="card-text">MEN</small>
-                            <div class="d-flex flex-row gap-2">
-                                <p class="card-text text-decoration-line-through text-danger">150</p> 
-                                <p class="card-text text-success">&nbsp;&nbsp;<?= $row['Unit_Price'] ?></p> 
-                            </div>
-                            <div class="d-flex flex-row ms-2">
-                                <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>">
-                                    <input type="hidden" name="product_id" value="<?= $row['Product_ID'] ?>">
-                                    <input type="submit" value="Add to Cart" class="btn btn-primary">
-                                </form>
-                                <a href="product.php?id=<?= $row['Product_ID'] ?>" class="btn btn-secondary ms-2">View</a>
+        <div class="container mt-3">
+                <div class="row g-3">
+                    <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                        <div class="col-md-3">
+                            <div class="card custom-card-height" style="width: 90%; height: 100%;">
+                                <img src="/assets/images/<?php echo $row['product_image']; ?>" alt="<?php echo $row['product_name']; ?>" class="product-image" class="thumbnail">
+                                <div class="card-body" style="background-color: #B02A24;">
+                                    <h5 class="card-title" style="color: white;"><?= $row['product_name'] ?></h5> 
+                                    <small class="card-text" style="color: white;">MEN</small>
+                                    <div class="d-flex flex-row gap-2">
+                                        <p class="card-text text-decoration-line-through text-warning opacity-75">150</p> 
+                                        <p class="" style="color: white;">&nbsp;&nbsp;<?= $row['product_price'] ?></p> 
+                                    </div>
+                                    <div class="d-flex flex-row ms-2">
+                                        <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>">
+                                            <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
+                                            <a class="btn btn-warning" id="add-to-cart" href="#"> <i class="fa-solid fa-cart-shopping" id="cart-button" style="font-size: 10px; width: 100px; height: 10px;"> Add to Cart</i></a>
+                                            <a href="#"><i class="fa-regular fa-heart" style="color: white; font-size: 16px"></i></a>
+                                        </form>
+                                        <!-- View Button -->
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#productModal<?= $row['product_id'] ?>"><i class="fa-solid fa-eye" id="view-button"></i></a>
+
+                                        <!-- Product Modal -->
+                                        <div class="modal fade" id="productModal<?= $row['product_id'] ?>" tabindex="-1" aria-labelledby="productModalLabel<?= $row['product_id'] ?>" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="productModalLabel<?= $row['product_id'] ?>"><?= $row['product_name'] ?></h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <img src="/assets/images/<?= $row['product_image'] ?>" alt="<?= $row['product_name'] ?>" class="img-fluid">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <h5>Description</h5>
+                                                                <p><?= $row['product_description'] ?></p>
+                                                                <h5>Price</h5>
+                                                                <p><?= $row['product_price'] ?></p>
+                                                                <h5>Stock Count</h5>
+                                                                <p><?= $row['stock'] ?></p>
+                                                                <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>">
+                                                                    <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
+                                                                    <button type="submit" class="btn btn-warning">Add to Cart</button>
+                                                                    <button type="button" class="btn btn-outline-danger"><i class="fa-regular fa-heart"></i> Add to Wishlist</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <?php } ?>
                 </div>
-            <?php } ?>
-        </div>
-    </div>
+            </div>
 </section>
 <section>
     <nav class="container" aria-label="Page navigation example">

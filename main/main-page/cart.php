@@ -10,7 +10,20 @@
 </head>
 <body>
     <?php
+    include '../../database/dbconnect.php';
     include 'navigation.php';
+
+    $query = "SELECT * FROM carts ORDER BY product_id ASC ";
+    $result = mysqli_query($connection, $query);
+    $carts = [];
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+           $carts = $row;
+        }
+    } else {
+        // echo "No products in the cart";
+    }
     ?>
     <div class="container mt-4">
         <div class="cart-header">
@@ -30,38 +43,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><img src="https://via.placeholder.com/80" alt="Product Image"></td>
-                    <td>Fusce Laoreet Volutpat</td>
-                    <td>$130.00</td>
-                    <td class="quantity-box">
-                        <button class="btn btn-outline-secondary">-</button>
-                        <input type="text" value="1" class="form-control d-inline w-auto">
-                        <button class="btn btn-outline-secondary">+</button>
-                    </td>
-                    <td>$130.00</td>
-                    <td>
-                        <button class="btn btn-danger remove-btn">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td><img src="https://via.placeholder.com/80" alt="Product Image"></td>
-                    <td>Fusce Laoreet Volutpat</td>
-                    <td>$140.00</td>
-                    <td class="quantity-box">
-                        <button class="btn btn-outline-secondary">-</button>
-                        <input type="text" value="1" class="form-control d-inline w-auto">
-                        <button class="btn btn-outline-secondary">+</button>
-                    </td>
-                    <td>$140.00</td>
-                    <td>
-                        <button class="btn btn-danger remove-btn">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
+                <?php foreach($carts as $carts):?>
+                    <tr>
+                        <td><?php echo $carts['product_image'] ?></td>
+                        <td><?php echo $carts['product_name'] ?></td>
+                        <td><?php echo $carts['product_price'] ?></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
 
