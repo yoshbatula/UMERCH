@@ -118,7 +118,7 @@ $total = 0;
                
             </div>
                     
-            <div class="cart-footer">
+            <div class="cart-footer mb-2">
                 <h3>Cart Totals</h3>
                 <p><strong>SUBTOTAL:</strong> <span class="subtotal-price"><?php echo number_format($_SESSION['raw-total'], 2);?></span></p>
 

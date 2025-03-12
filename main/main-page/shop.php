@@ -1,5 +1,4 @@
 <?php
-
 include 'navigation.php';
 include '../../database/dbconnect.php';
 
@@ -21,77 +20,106 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
         $_SESSION['cart'] = [];
     }
     
-    if (!in_array($product_id, $_SESSION['cart'])) {
-        $_SESSION['cart'][] = $product_id;
-        
-        $product_query = "SELECT product_id, product_name, product_price, product_image FROM products WHERE product_id = ?";
-        $stmt = $connection->prepare($product_query);
-        $stmt->bind_param("i", $product_id);
-        $stmt->execute();
-        $product_result = $stmt->get_result();
-        $quantity = 1;
-
-        if ($product = mysqli_fetch_assoc($product_result)) {
+    // Check if product already exists in user's cart directly in the database
+    $check_cart_query = "SELECT * FROM carts WHERE ID = ? AND product_id = ?";
+    $check_cart_stmt = $connection->prepare($check_cart_query);
+    $check_cart_stmt->bind_param("ii", $_SESSION['ID'], $product_id);
+    $check_cart_stmt->execute();
+    $check_cart_result = $check_cart_stmt->get_result();
+    
+    // Get product information
+    $product_query = "SELECT product_id, product_name, product_price, product_image FROM products WHERE product_id = ?";
+    $stmt = $connection->prepare($product_query);
+    $stmt->bind_param("i", $product_id);
+    $stmt->execute();
+    $product_result = $stmt->get_result();
+    $quantity = 1;
+    
+    if ($product = mysqli_fetch_assoc($product_result)) {
+        if ($check_cart_result->num_rows > 0) {
+            // Update quantity if product already in cart
+            $update_query = "UPDATE carts SET quantity = quantity + 1, subtotal = subtotal + ? WHERE ID = ? AND product_id = ?";
+            $update_stmt = $connection->prepare($update_query);
+            $update_stmt->bind_param("dii", $product['product_price'], $_SESSION['ID'], $product_id);
+            $update_stmt->execute();
             
-            $check_user_query = "SELECT ID FROM users WHERE ID = ?";
-            $check_stmt = $connection->prepare($check_user_query);
-            $check_stmt->bind_param("i", $_SESSION['ID']);
-            $check_stmt->execute();
-            $check_result = $check_stmt->get_result();
-            
-            if ($check_result->num_rows > 0) {
-                // Check if product already exists in user's cart
-                $check_cart_query = "SELECT * FROM carts WHERE ID = ? AND product_id = ?";
-                $check_cart_stmt = $connection->prepare($check_cart_query);
-                $check_cart_stmt->bind_param("ii", $_SESSION['ID'], $product_id);
-                $check_cart_stmt->execute();
-                $check_cart_result = $check_cart_stmt->get_result();
+            if ($update_stmt->affected_rows > 0) {
+                $_SESSION['message'] = "Product quantity updated in cart!";
+                $_SESSION['message_type'] = "success";
                 
-                if ($check_cart_result->num_rows > 0) {
-                    // Update quantity if product already in cart
-                    $update_query = "UPDATE carts SET quantity = quantity + 1, subtotal = subtotal + ? WHERE ID = ? AND product_id = ?";
-                    $update_stmt = $connection->prepare($update_query);
-                    $update_stmt->bind_param("dii", $product['product_price'], $_SESSION['ID'], $product_id);
-                    $update_stmt->execute();
-                    
-                    if ($update_stmt->affected_rows > 0) {
-                        $_SESSION['message'] = "Product quantity updated in cart!";
-                        $_SESSION['message_type'] = "success";
-                    } else {
-                        $_SESSION['message'] = "Failed to update cart";
-                        $_SESSION['message_type'] = "error";
-                    }
-                } else {
-                    // Insert new product into cart
-                    $insert_query = "INSERT INTO carts (ID, product_id, quantity, subtotal) 
-                                    VALUES (?, ?, ?, ?)";
-                    
-                    $insert_stmt = $connection->prepare($insert_query);
-                    $subtotal = $product['product_price'] * $quantity;
-                    $insert_stmt->bind_param("iiid", 
-                        $_SESSION['ID'],
-                        $product['product_id'], 
-                        $quantity,
-                        $subtotal 
-                    );
-                    $insert_stmt->execute();
-
-                    if ($insert_stmt->affected_rows > 0) {
-                        $_SESSION['message'] = "Product added to cart successfully!";
-                        $_SESSION['message_type'] = "success";
-                    } else {
-                        $_SESSION['message'] = "Failed to add product to cart: " . $insert_stmt->error;
-                        $_SESSION['message_type'] = "error";
-                    }
+                // Add to session cart if not already there
+                if (!in_array($product_id, $_SESSION['cart'])) {
+                    $_SESSION['cart'][] = $product_id;
                 }
             } else {
-                $_SESSION['message'] = "Invalid user session. Please log in again.";
+                $_SESSION['message'] = "Failed to update cart";
                 $_SESSION['message_type'] = "error";
+            }
+        } else {
+            // First check if any entry with this ID already exists 
+            // (this is the workaround if ID is the primary key)
+            $check_id_query = "SELECT * FROM carts WHERE ID = ?";
+            $check_id_stmt = $connection->prepare($check_id_query);
+            $check_id_stmt->bind_param("i", $_SESSION['ID']);
+            $check_id_stmt->execute();
+            $check_id_result = $check_id_stmt->get_result();
+            
+            if ($check_id_result->num_rows > 0) {
+                // If user already has items in cart, update the cart with this product
+                $update_cart_query = "UPDATE carts SET 
+                    product_id = ?, 
+                    quantity = ?, 
+                    subtotal = ? 
+                    WHERE ID = ?";
+                
+                $update_cart_stmt = $connection->prepare($update_cart_query);
+                $subtotal = $product['product_price'] * $quantity;
+                $update_cart_stmt->bind_param("iidi", 
+                    $product['product_id'],
+                    $quantity,
+                    $subtotal,
+                    $_SESSION['ID']
+                );
+                $update_cart_stmt->execute();
+                
+                if ($update_cart_stmt->affected_rows > 0) {
+                    $_SESSION['message'] = "Product added to cart successfully!";
+                    $_SESSION['message_type'] = "success";
+                    $_SESSION['cart'][] = $product_id;
+                } else {
+                    $_SESSION['message'] = "Failed to add product to cart: " . $update_cart_stmt->error;
+                    $_SESSION['message_type'] = "error";
+                }
+            } else {
+                // Insert new product into cart if no entries exist for this user
+                $insert_query = "INSERT INTO carts (ID, product_id, quantity, subtotal) 
+                              VALUES (?, ?, ?, ?)";
+                
+                $insert_stmt = $connection->prepare($insert_query);
+                $subtotal = $product['product_price'] * $quantity;
+                $insert_stmt->bind_param("iiid", 
+                    $_SESSION['ID'],
+                    $product['product_id'], 
+                    $quantity,
+                    $subtotal 
+                );
+                $insert_stmt->execute();
+    
+                if ($insert_stmt->affected_rows > 0) {
+                    $_SESSION['message'] = "Product added to cart successfully!";
+                    $_SESSION['message_type'] = "success";
+                    
+                    // Add to session cart
+                    $_SESSION['cart'][] = $product_id;
+                } else {
+                    $_SESSION['message'] = "Failed to add product to cart: " . $insert_stmt->error;
+                    $_SESSION['message_type'] = "error";
+                }
             }
         }
     } else {
-        $_SESSION['message'] = "Product is already in your cart";
-        $_SESSION['message_type'] = "warning";
+        $_SESSION['message'] = "Product not found";
+        $_SESSION['message_type'] = "error";
     }
     
     header("Location: " . $_SERVER['PHP_SELF'] . "?added=1");
