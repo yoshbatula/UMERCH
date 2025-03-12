@@ -35,10 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             if ($result->num_rows > 0) {
                 $user = $result->fetch_assoc();
                 if ($password === $user['user_password']) { 
-                    
+                    $_SESSION['ID'] = $user['ID'];
                     $_SESSION['user_id'] = $user['user_id'];
                     $_SESSION['user_email'] = $user['user_email'];
-                    
+                    $_SESSION['user_fullname'] = $user['user_fullname'];
                     if (isset($_POST['remember'])) {
                         setcookie("user_login", $user['user_id'], time() + (30 * 24 * 60 * 60), "/");
                     }

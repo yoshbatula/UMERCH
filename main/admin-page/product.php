@@ -30,16 +30,16 @@
             $productType = $_POST['productType'];
             $unitPrice = $_POST['unitPrice'];
             $stock = $_POST['stock'];
-            
+            $productDescription = $_POST['productDescription'];
             $imageName = null;
             if(isset($_FILES['productImage']) && $_FILES['productImage']['error'] == 0) {
                 $imageName = handleImageUpload($_FILES['productImage']);
             }
             
-            $sql = "INSERT INTO products (Image, Product_Name, Unit_Price, Stock, Product_Type) 
-                    VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO products (product_image, product_name, product_price, stock, product_type, product_description) 
+                    VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = $connection->prepare($sql);
-            $stmt->bind_param("ssdis", $imageName, $productName, $unitPrice, $stock, $productType);
+            $stmt->bind_param("ssdiss", $imageName, $productName, $unitPrice, $stock, $productType, $productDescription);
             
             if($stmt->execute()) {
                 $_SESSION['message'] = "Product added successfully!";
@@ -59,28 +59,30 @@
             $productType = $_POST['editProductType'];
             $unitPrice = $_POST['editUnitPrice'];
             $stockCount = $_POST['editStockCount'];
-            
+            $productDescription = $_POST['editProductDescription'];
             if(isset($_FILES['editProductImage']) && $_FILES['editProductImage']['error'] == 0) {
                 $imageName = handleImageUpload($_FILES['editProductImage']);
                 
                 $sql = "UPDATE products SET 
-                        Product_Name = ?, 
-                        Product_Type = ?, 
-                        Unit_Price = ?, 
-                        Stock = ?,
-                        Image = ?
+                        product_name = ?, 
+                        product_type = ?, 
+                        product_descrption = ?,
+                        prodcut_price = ?, 
+                        stock = ?,
+                        product_image = ?
                         WHERE Product_ID = ?";
                 $stmt = $connection->prepare($sql);
-                $stmt->bind_param("ssdisi", $productName, $productType, $unitPrice, $stockCount, $imageName, $productId);
+                $stmt->bind_param("ssdisis", $productName, $productType, $unitPrice, $stockCount, $imageName, $productId, $productDescription);
             } else {
                 $sql = "UPDATE products SET 
-                        Product_Name = ?, 
-                        Product_Type = ?, 
-                        Unit_Price = ?, 
+                        product_name = ?, 
+                        product_description = ?,
+                        product_type = ?, 
+                        product_price = ?, 
                         Stock = ?
                         WHERE Product_ID = ?";
                 $stmt = $connection->prepare($sql);
-                $stmt->bind_param("ssdii", $productName, $productType, $unitPrice, $stockCount, $productId);
+                $stmt->bind_param("ssdiis", $productName, $productType, $unitPrice, $stockCount, $productId, $productDescription);
             }
             
             if($stmt->execute()) {
@@ -235,15 +237,15 @@
                         <tbody>
                             <?php foreach($products as $product): ?>
                             <tr>
-                                <td><?php echo $product['Product_ID']; ?></td>
-                                <td><img src="/assets/images/<?php echo $product['Image']; ?>" alt="<?php echo $product['Product_Name']; ?>" class="product-image"></td>
-                                <td><?php echo $product['Product_Name']; ?></td>
-                                <td><?php echo $product['Unit_Price']; ?></td>
-                                <td><?php echo $product['Stock']; ?></td>
-                                <td><?php echo $product['Product_Type']; ?></td>
+                                <td><?php echo $product['product_id']; ?></td>
+                                <td><img src="/assets/images/<?php echo $product['product_image']; ?>" alt="<?php echo $product['product_name']; ?>" class="product-image"></td>
+                                <td><?php echo $product['product_name']; ?></td>
+                                <td><?php echo $product['product_price']; ?></td>
+                                <td><?php echo $product['stock']; ?></td>
+                                <td><?php echo $product['product_type']; ?></td>
                                 <td>
-                                    <button class="edit-btn btn btn-warning" data-bs-toggle="modal" data-bs-target="#editProductModal" data-id="<?php echo $product['Product_ID']; ?>" data-name="<?php echo $product['Product_Name']; ?>" data-type="<?php echo $product['Product_Type']; ?>" data-price="<?php echo $product['Unit_Price']; ?>" data-stock="<?php echo $product['Stock']; ?>">Update</button>
-                                    <button class="delete-btn btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal"data-id="<?php echo $product['Product_ID']; ?>">Delete</button>
+                                    <button class="edit-btn btn btn-warning" data-bs-toggle="modal" data-bs-target="#editProductModal" data-id="<?php echo $product['product_id']; ?>" data-name="<?php echo $product['product_name']; ?>" data-type="<?php echo $product['product_type']; ?>" data-price="<?php echo $product['product_price']; ?>" data-stock="<?php echo $product['stock']; ?>" data-description="<?php echo $product['product_description'] ?>">Update</button>
+                                    <button class="delete-btn btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal"data-id="<?php echo $product['product_id']; ?>">Delete</button>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -293,6 +295,10 @@
                             <input type="text" class="form-control" id="productName" name="productName" required>
                         </div>
                         <div class="mb-3">
+                            <label for="productDescription" class="form-label">Product Description</label>
+                            <input type="text" class="form-control" id="productDescription" name="productDescription" required>
+                        </div>
+                        <div class="mb-3">
                             <label for="productType" class="form-label">Product Type</label>
                             <input type="text" class="form-control" id="productType" name="productType" required>
                         </div>
@@ -330,6 +336,10 @@
                         <div class="mb-3">
                             <label for="editProductName" class="form-label">Product Name</label>
                             <input type="text" class="form-control" id="editProductName" name="editProductName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editProductDescription">Product Description</label>
+                            <input type="text" class="form-control" id="editProductDescription" name="editProductDescription" required>
                         </div>
                         <div class="mb-3">
                             <label for="editProductType" class="form-label">Product Type</label>

@@ -49,6 +49,8 @@
                         <img src="/assets/images/profile-icon.png" alt="Profile">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                    <li><span class="dropdown-item-text"><?php echo $_SESSION['user_fullname']?></span></li>
+                        <hr>
                         <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                     </ul>
                 </div>
