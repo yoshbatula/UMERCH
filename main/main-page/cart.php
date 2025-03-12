@@ -22,7 +22,7 @@
            $carts = $row;
         }
     } else {
-        // echo "No products in the cart";
+        
     }
     ?>
     <div class="container mt-4">
@@ -94,6 +94,16 @@
       function navigateTo(url) {
         window.location.href = url;
       }
+
+      <?php if(isset($_SESSION['message'])): ?>
+                Swal.fire({
+                    icon: '<?php echo $_SESSION['message_type']; ?>',
+                    title: '<?php echo $_SESSION['message']; ?>',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                <?php unset($_SESSION['message']); unset($_SESSION['message_type']); ?>
+            <?php endif; ?>
     </script>
 </body>
 </html>

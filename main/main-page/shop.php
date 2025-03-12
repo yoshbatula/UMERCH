@@ -14,24 +14,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
     if (!in_array($product_id, $_SESSION['cart'])) {
         $_SESSION['cart'][] = $product_id;
         
-        $product_query = "SELECT product_id, product_name, product_price, Image FROM products WHERE product_id = $product_id";
-        $product_result = mysqli_query($connection, $product_query);
+        $product_query = "SELECT product_id, product_name, product_price, product_image FROM products WHERE product_id = ?";
+        $stmt = $connection->prepare($product_query);
+        $stmt->bind_param("i", $product_id);
+        $stmt->execute();
+        $product_result = $stmt->get_result();
 
-    if ($product = mysqli_fetch_assoc($product_result)) {
-        $insert_query = "INSERT INTO carts (id, product_id, product_name, product_image) 
-        VALUES ('{$product['product_id']}', '{$product['product_price']}', 
-        '{$product['product_name']}', '{$product['product_image']}')";
-    
-    mysqli_query($connection, $insert_query);
-}
+        if ($product = mysqli_fetch_assoc($product_result)) {
+            
+            $insert_query = "INSERT INTO carts (product_id, quantity, subtotal) 
+                            VALUES (?, ?, ?)";
+            
+            $insert_stmt = $connection->prepare($insert_query);
+            $insert_stmt->bind_param("iii", 
+                $product['product_id'], 
+                $product['product_price'],
+                $product['product_price'] 
+            );
+            $insert_stmt->execute();
+
+            if ($insert_stmt->affected_rows > 0) {
+                $_SESSION['message'] = "Product added to cart successfully!";
+                $_SESSION['message_type'] = "success";
+            } else {
+                $_SESSION['message'] = "Failed to add product to cart";
+                $_SESSION['message_type'] = "error";
+            }
+        }
+    } else {
+        $_SESSION['message'] = "Product is already in your cart";
+        $_SESSION['message_type'] = "warning";
     }
     
     header("Location: " . $_SERVER['PHP_SELF'] . "?added=1");
     exit();
-}
-
-if (isset($_GET['added']) && $_GET['added'] == 1) {
-    $message = "Product added to cart successfully!";
 }
 ?>
 <!DOCTYPE html>
@@ -47,6 +63,8 @@ if (isset($_GET['added']) && $_GET['added'] == 1) {
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/shop.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <!-- NAVIGATION -->
@@ -96,7 +114,7 @@ if (isset($_GET['added']) && $_GET['added'] == 1) {
                     <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                         <div class="col-md-3">
                             <div class="card custom-card-height" style="width: 90%; height: 100%;">
-                                <img src="/assets/images/<?php echo $row['product_image']; ?>" alt="<?php echo $row['product_name']; ?>" class="product-image" class="thumbnail">
+                                <img src="/assets/images/<?php echo $row['product_image']; ?>" alt="<?php echo $row['product_name']; ?>" class="product-image">
                                 <div class="card-body" style="background-color: #B02A24;">
                                     <h5 class="card-title" style="color: white;"><?= $row['product_name'] ?></h5> 
                                     <small class="card-text" style="color: white;">MEN</small>
@@ -105,13 +123,19 @@ if (isset($_GET['added']) && $_GET['added'] == 1) {
                                         <p class="" style="color: white;">&nbsp;&nbsp;<?= $row['product_price'] ?></p> 
                                     </div>
                                     <div class="d-flex flex-row ms-2">
+                                        
                                         <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>">
                                             <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
-                                            <a class="btn btn-warning" id="add-to-cart" href="#"> <i class="fa-solid fa-cart-shopping" id="cart-button" style="font-size: 10px; width: 100px; height: 10px;"> Add to Cart</i></a>
-                                            <a href="#"><i class="fa-regular fa-heart" style="color: white; font-size: 16px"></i></a>
+                                            <button type="submit" class="btn btn-warning" id="add-to-cart">
+                                                <i class="fa-solid fa-cart-shopping" id="cart-button" style="font-size: 10px;"> Add to Cart</i>
+                                            </button>
                                         </form>
+                                        <a href="#" class="ms-2"><i class="fa-regular fa-heart" style="color: white; font-size: 16px; transform: translateY(3px);"></i></a>
+                                        
                                         <!-- View Button -->
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#productModal<?= $row['product_id'] ?>"><i class="fa-solid fa-eye" id="view-button"></i></a>
+                                        <a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#productModal<?= $row['product_id'] ?>">
+                                            <i class="fa-solid fa-eye" id="view-button"></i>
+                                        </a>
 
                                         <!-- Product Modal -->
                                         <div class="modal fade" id="productModal<?= $row['product_id'] ?>" tabindex="-1" aria-labelledby="productModalLabel<?= $row['product_id'] ?>" aria-hidden="true">
@@ -135,7 +159,7 @@ if (isset($_GET['added']) && $_GET['added'] == 1) {
                                                                 <p><?= $row['stock'] ?></p>
                                                                 <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>">
                                                                     <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
-                                                                    <button type="submit" class="btn btn-warning">Add to Cart</button>
+                                                                    <button type="submit" class="btn btn-warning" name="cart">Add to Cart</button>
                                                                     <button type="button" class="btn btn-outline-danger"><i class="fa-regular fa-heart"></i> Add to Wishlist</button>
                                                                 </form>
                                                             </div>
@@ -174,27 +198,20 @@ if (isset($_GET['added']) && $_GET['added'] == 1) {
 <?php
     include 'footer.php';
 ?>
-<?php if (isset($_GET['added']) && $_GET['added'] == 1 && isset($_SESSION['added_product'])): ?>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        Swal.fire({
-            title: 'Added to Cart!',
-            text: '<?php echo $_SESSION['added_product']; ?> has been added to your cart',
-            icon: 'success',
-            timer: 3000,
-            timerProgressBar: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            toast: true
-        });
+        <?php if(isset($_SESSION['message'])): ?>
+            Swal.fire({
+                icon: '<?php echo $_SESSION['message_type']; ?>',
+                title: '<?php echo $_SESSION['message']; ?>',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            <?php unset($_SESSION['message']); unset($_SESSION['message_type']); ?>
+        <?php endif; ?>
     });
 </script>
-<?php 
-    unset($_SESSION['added_product']); 
-endif; 
-?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
-</script>
 </body>
 </html>

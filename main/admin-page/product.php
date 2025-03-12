@@ -59,62 +59,63 @@
             $productType = $_POST['editProductType'];
             $unitPrice = $_POST['editUnitPrice'];
             $stockCount = $_POST['editStockCount'];
-            $productDescription1 = $_POST['editProductDescription'];
+            $productDescription = $_POST['editProductDescription'];
+            
             if(isset($_FILES['editProductImage']) && $_FILES['editProductImage']['error'] == 0) {
                 $imageName = handleImageUpload($_FILES['editProductImage']);
                 
                 $sql = "UPDATE products SET 
                         product_name = ?, 
                         product_type = ?, 
-                        product_descrption = ?,
-                        prodcut_price = ?, 
+                        product_description = ?,
+                        product_price = ?, 
                         stock = ?,
                         product_image = ?
                         WHERE product_id = ?";
                 $stmt = $connection->prepare($sql);
-                $stmt->bind_param("ssdisis", $productName, $productType, $unitPrice, $stockCount, $imageName, $productId, $productDescription1);
+                $stmt->bind_param("sssddsi", $productName, $productType, $productDescription, $unitPrice, $stockCount, $imageName, $productId);
             } else {
                 $sql = "UPDATE products SET 
                         product_name = ?, 
-                        product_description = ?,
                         product_type = ?, 
+                        product_description = ?,
                         product_price = ?, 
                         stock = ?
                         WHERE product_id = ?";
                 $stmt = $connection->prepare($sql);
-                $stmt->bind_param("ssdiis", $productName, $productType, $unitPrice, $stockCount, $productId, $productDescription);
+                $stmt->bind_param("sssddi", $productName, $productType, $productDescription, $unitPrice, $stockCount, $productId);
             }
             
             if($stmt->execute()) {
                 $_SESSION['message'] = "Product updated successfully!";
                 $_SESSION['message_type'] = "success";
             } else {
-                $_SESSION['message'] = "Error updating product: " . $connection->error;
+                $_SESSION['message'] = "Error updating product: " . $connection->error . " - " . $stmt->error;
                 $_SESSION['message_type'] = "danger";
             }
             
             header("Location: ".$_SERVER['PHP_SELF']);
             exit();
         }
-        
+
         if($action == 'delete') {
             $productId = $_POST['deleteProductId'];
             
-            $sql = "SELECT Image FROM products WHERE Product_ID = ?";
+            $sql = "SELECT product_image FROM products WHERE product_id = ?";
             $stmt = $connection->prepare($sql);
             $stmt->bind_param("i", $productId);
             $stmt->execute();
             $result = $stmt->get_result();
             
             if($row = $result->fetch_assoc()) {
-                $imageName = $row['Image'];
+                $imageName = $row['product_image'];
                 
                 if($imageName && file_exists("../../assets/images/".$imageName)) {
                     unlink("../../assets/images/".$imageName);
                 }
             }
             
-            $sql = "DELETE FROM products WHERE Product_ID = ?";
+            $sql = "DELETE FROM products WHERE product_id = ?";
             $stmt = $connection->prepare($sql);
             $stmt->bind_param("i", $productId);
             
@@ -244,8 +245,8 @@
                                 <td><?php echo $product['stock']; ?></td>
                                 <td><?php echo $product['product_type']; ?></td>
                                 <td>
-                                    <button class="edit-btn btn btn-warning" data-bs-toggle="modal" data-bs-target="#editProductModal" data-id="<?php echo $product['product_id']; ?>" data-name="<?php echo $product['product_name']; ?>" data-type="<?php echo $product['product_type']; ?>" data-price="<?php echo $product['product_price']; ?>" data-stock="<?php echo $product['stock']; ?>" data-description="<?php echo $product['product_description'] ?>">Update</button>
-                                    <button class="delete-btn btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal"data-id="<?php echo $product['product_id']; ?>">Delete</button>
+                                    <button class="edit-btn btn btn-warning" data-bs-toggle="modal" data-bs-target="#editProductModal" data-id="<?php echo $product['product_id']; ?>" data-name="<?php echo $product['product_name']; ?>" data-type="<?php echo $product['product_type']; ?>" data-price="<?php echo $product['product_price']; ?>" data-stock="<?php echo $product['stock']; ?>" data-description="<?php echo $product['product_description']; ?>">Update</button>
+                                    <button class="delete-btn btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProductModal" data-id="<?php echo $product['product_id']; ?>">Delete</button>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -338,7 +339,7 @@
                             <input type="text" class="form-control" id="editProductName" name="editProductName" required>
                         </div>
                         <div class="mb-3">
-                            <label for="editProductDescription">Product Description</label>
+                            <label for="editProductDescription" class="form-label">Product Description</label>
                             <input type="text" class="form-control" id="editProductDescription" name="editProductDescription" required>
                         </div>
                         <div class="mb-3">
@@ -414,6 +415,14 @@
                     document.getElementById('editUnitPrice').value = unitPrice;
                     document.getElementById('editStockCount').value = stockCount;
                     document.getElementById('editProductDescription').value = productDescription;
+                });
+            });
+            
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-id');
+                    document.getElementById('deleteProductId').value = productId;
                 });
             });
 
