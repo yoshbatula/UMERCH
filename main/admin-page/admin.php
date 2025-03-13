@@ -30,13 +30,13 @@
         </div>
         
         <ul class="nav flex-column">
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a href="admin.php" class="nav-link">
                     <i class="fa-solid fa-gauge-simple-high"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a href="product.php" class="nav-link">
                     <i class="fa-solid fa-box"></i>
                     <span>Products</span>
