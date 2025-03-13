@@ -148,3 +148,42 @@ body {
 .dashboard-header small {
     font-size: 0.9rem;
 }
+
+.search-form .input-group {
+    display: flex;
+}
+
+.search-form .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.search-form .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.product-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.pagination {
+    margin-bottom: 0;
+}
+
+.page-link {
+    color: #BE0002;
+    border-radius: 5px;
+    margin: 0 3px;
+}
+
+.page-item.active .page-link {
+    background-color: #BE0002;
+    border-color: #BE0002;
+}
+
+.page-link:focus {
+    box-shadow: 0 0 0 0.2rem rgba(190, 0, 2, 0.25);
+}
