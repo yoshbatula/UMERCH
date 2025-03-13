@@ -148,7 +148,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
                                 <img src="/assets/images/<?php echo $row['product_image']; ?>" alt="<?php echo $row['product_name']; ?>" class="product-image">
                                 <div class="card-body" style="background-color: #B02A24;">
                                     <h5 class="card-title" style="color: white;"><?= $row['product_name'] ?></h5> 
-                                    <small class="card-text" style="color: white;">MEN</small>
                                     <div class="d-flex flex-row gap-2">
                                         <p class="card-text text-decoration-line-through text-warning opacity-75">150</p> 
                                         <p class="" style="color: white;">&nbsp;&nbsp;<?= $row['product_price'] ?></p> 

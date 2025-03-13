@@ -16,6 +16,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
     <header class="header">
@@ -40,12 +41,12 @@
             <div class="nav-actions">
                
                 <a href="cart.php" class="icon-btn"><img src="/assets/images/cart-icon.png" alt="Cart"></a>
-                <span class="text-white" id="cart-count"><?= isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0 ?></span>
+                <span class="text-white" style="transform: translateX(-20px); font-size:16px;" id="cart-count"><?= isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0 ?></span>
                 
-                <a href="notifications.php" class="icon-btn"><img src="/assets/images/notif-icon.png" alt="Notifications"></a>
+                <a href="my_orders.php" class="icon-btn text-white" style="transform: translateX(-15px); font-size: 16px;"><i class="fa-solid fa-table-list"></i>></a>
                 
                 <div class="dropdown">
-                    <a href="#" class="icon-btn dropdown-toggle" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a href="#" class="icon-btn dropdown-toggle" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="transform: translateX(-10px);">
                         <img src="/assets/images/profile-icon.png" alt="Profile">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">

@@ -39,7 +39,7 @@ $cart_count = $check_empty_result->fetch_assoc()['count'];
             <div class="text-center my-5">
                 <h3>Your cart is empty</h3>
                 <p>Browse our products and add items to your cart</p>
-                <a href="shop.php" class="btn btn-primary">Continue Shopping</a>
+                <a href="shop.php" class="btn btn-warning text-white">Continue Shopping</a>
             </div>
         <?php else: ?>
             <table class="table table-bordered text-center align-middle">
@@ -151,7 +151,7 @@ $cart_count = $check_empty_result->fetch_assoc()['count'];
 
                     <p class="total"><strong>TOTAL:</strong> <span class="total-price"><?php echo number_format($grandtotal, 2);?></span></p>
                     <div class="checkout-div">
-                      <a href="checkout.php" class="checkout">PROCEED TO CHECKOUT</a>
+                      <a href="order.php" class="checkout">PROCEED TO CHECKOUT</a>
                     </div>
                 </div>
             </div>

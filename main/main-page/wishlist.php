@@ -64,7 +64,7 @@ if ($wishlist_count > 0) {
             <div class="text-center my-5">
                 <h3>Your wishlist is empty</h3>
                 <p>Browse our products and add items to your wishlist</p>
-                <a href="shop.php" class="btn btn-primary">Continue Shopping</a>
+                <a href="shop.php" class="btn btn-warning text-white">Continue Shopping</a>
             </div>
             <?php else: ?>
                 <div class="mt-4">

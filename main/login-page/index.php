@@ -101,13 +101,13 @@ if (isset($_SESSION['user_id'])) {
                         <i class="fa-solid fa-lock icon"></i>
                     </div>
                     <div class="remember-forgot">
-                        <div class="remember-me">
+                        <!-- <div class="remember-me">
                             <input type="checkbox" id="remember" name="remember">
                             <label for="remember">Remember me</label>
                         </div>
                         <div class="forgot-password">
                             <a href="#">Forgot Password?</a>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="input_box">
                         <input class="input-submit" type="submit" value="LOGIN" name="login">
