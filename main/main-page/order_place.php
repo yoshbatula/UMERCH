@@ -1,12 +1,11 @@
 <?php
-// filepath: c:\xampp\htdocs\UMERCH\main\main-page\order_place.php
 include '../../database/dbconnect.php';
 include 'navigation.php';
 
 $user_id = $_SESSION['ID'];
-$order_date = date("Y-m-d H:i:s"); // Current timestamp
-$total_amount = $_SESSION['raw-total'] + (0.01 * $_SESSION['raw-total']); // Grand total
-$payment_method = isset($_POST['payment_method']) ? $_POST['payment_method'] : 'Unknown'; // Retrieved from form submission
+$order_date = date("Y-m-d H:i:s"); 
+$total_amount = $_SESSION['raw-total'] + (0.01 * $_SESSION['raw-total']); 
+$payment_method = isset($_POST['payment_method']) ? $_POST['payment_method'] : 'Unknown'; 
 
 try {
     // Start transaction
@@ -21,7 +20,7 @@ try {
         throw new Exception("Error inserting order: " . $order_stmt->error);
     }
     
-    $order_id = $connection->insert_id; // Get the last inserted order ID
+    $order_id = $connection->insert_id; 
 
     // Insert into payments table
     $payment_query = "INSERT INTO payments (order_id, total_amount, payment_method) VALUES (?, ?, ?)";
@@ -62,7 +61,6 @@ try {
         if (!$order_item_stmt->execute()) {
             throw new Exception("Error inserting order item: " . $order_item_stmt->error);
         }
-        
     }
 
     // Clear the user's cart after placing the order
@@ -89,9 +87,13 @@ try {
     $_SESSION['order_success'] = true;
     $_SESSION['order_id'] = $order_id;
     $_SESSION['total_amount'] = $total_amount;
+    
+    // IMPORTANT: Reset the cart in session to empty
+    $_SESSION['cart'] = [];
+    unset($_SESSION['raw-total']); 
 
 } catch (Exception $e) {
-    // Rollback the transaction on error
+    
     $connection->rollback();
     
     // Close any open statements
@@ -121,12 +123,15 @@ try {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Show success message with SweetAlert2
             Swal.fire({
                 icon: 'success',
                 title: 'Order Placed Successfully!',
+                text: 'Your order has been confirmed!',
                 confirmButtonColor: '#B02A24'
             }).then(function() {
                 // Redirect to main page after user clicks OK

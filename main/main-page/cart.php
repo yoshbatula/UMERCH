@@ -31,8 +31,7 @@ $cart_count = $check_empty_result->fetch_assoc()['count'];
     <div class="container mt-4">
         <div class="cart-header">
           <span class="active"><span class="step-number">01</span> <span class="step-text">Shopping Cart</span></span>
-          <span class="inactive" onclick="navigateTo('checkout.php')"><span class="step-number">02</span> <span class="step-text">Checkout</span></span>
-          <span class="inactive" onclick="navigateTo('order.php')"><span class="step-number">03</span> <span class="step-text">Complete-Order</span></span>
+          <span class="inactive" onclick="navigateTo('order.php')"><span class="step-number">02</span> <span class="step-text">Complete-Order</span></span>
         </div>
         
         <?php if ($cart_count === 0): ?>
