@@ -2,7 +2,28 @@
 include 'navigation.php';
 include '../../database/dbconnect.php';
 
-$query = "SELECT * FROM products";
+// Pagination configuration
+$per_page = 8;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$page = max($page, 1);
+
+// Get total products
+$count_query = "SELECT COUNT(*) AS total FROM products";
+$count_result = mysqli_query($connection, $count_query);
+$total_row = mysqli_fetch_assoc($count_result);
+$total_products = $total_row['total'];
+$total_pages = ceil($total_products / $per_page);
+
+// Validate page range
+if ($total_pages > 0 && $page > $total_pages) {
+    $page = $total_pages;
+}
+
+// Calculate offset
+$offset = ($page - 1) * $per_page;
+
+// Query with pagination
+$query = "SELECT * FROM products LIMIT $per_page OFFSET $offset";
 $result = mysqli_query($connection, $query);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
@@ -79,7 +100,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
         $_SESSION['message_type'] = "error";
     }
     
-    header("Location: " . $_SERVER['PHP_SELF'] . "?added=1");
+    $redirect = $_SERVER['PHP_SELF'];
+    if (isset($_GET['page'])) {
+        $redirect .= '?page=' . $_GET['page'] . '&added=1';
+    } else {
+        $redirect .= '?added=1';
+    }
+    header("Location: " . $redirect);
     exit();
 }
 ?>
@@ -117,26 +144,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
 <section>
     <div class="container mt-4">
         <hr>
-        <div class="d-flex justify-content-between align-items-center" id="view-dropdown">
-            <div class="d-flex align-items-center">
-                <label class="me-2">View</label>
-                <select name="" id="" class="form-select">
-                    <option select>25</option>
-                    <option value="1">50</option>
-                    <option value="2">100</option>
-                </select>
-            </div>
-            <div class="d-flex align-items-center">
-                <label class="me-2" style="width: 100px; margin-left: 10%;">Sort By</label>
-                <select name="" id="" class="form-select">
-                    <option select>Default</option>
-                    <option value="1"></option>
-                </select>
-            </div>
-            <div class="view-show ms-auto">
-                <label for="">Showing <strong>1-20</strong> of <strong>120</strong> results</label>
-            </div>
-        </div>
         <hr>
     </div>
 </section>
@@ -149,8 +156,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
                                 <div class="card-body" style="background-color: #B02A24;">
                                     <h5 class="card-title" style="color: white;"><?= $row['product_name'] ?></h5> 
                                     <div class="d-flex flex-row gap-2">
-                                        <p class="card-text text-decoration-line-through text-warning opacity-75">150</p> 
-                                        <p class="" style="color: white;">&nbsp;&nbsp;<?= $row['product_price'] ?></p> 
+                                        <!-- <p class="card-text text-decoration-line-through text-warning opacity-75">150</p>  -->
+                                        <p class="" style="color: white;">&nbsp;&nbsp;<?php echo "₱". $row['product_price'] ?></p> 
                                     </div>
                                     <div class="d-flex flex-row ms-2">
                                         
@@ -217,21 +224,74 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
             </div>
 </section>
 <section>
-    <nav class="container" aria-label="Page navigation example">
+    <nav class="container" aria-label="Product pagination">
         <hr>
+        <?php if ($total_pages > 1): ?>
         <ul class="mt-3 pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="#" tabindex="-1"><-</a>
+            <!-- Previous Page Button -->
+            <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
+                <a class="page-link" 
+                   href="?page=<?= $page - 1 ?>" 
+                   <?= $page <= 1 ? 'tabindex="-1" aria-disabled="true"' : '' ?>>
+                    &laquo;
+                </a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">-></a>
+
+            <?php
+            // Calculate page range with ellipsis logic
+            $range = 2;
+            $start = max(1, $page - $range);
+            $end = min($total_pages, $page + $range);
+
+            // Show first page + ellipsis if needed
+            if ($start > 1) {
+                echo '<li class="page-item"><a class="page-link" href="?page=1">1</a></li>';
+                if ($start > 2) {
+                    echo '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                }
+            }
+
+            // Generate page number links
+            for ($i = $start; $i <= $end; $i++) {
+                $active = $i == $page ? 'active' : '';
+                echo "<li class='page-item $active'>";
+                echo "<a class='page-link' href='?page=$i'>$i</a>";
+                echo "</li>";
+            }
+
+            // Show last page + ellipsis if needed
+            if ($end < $total_pages) {
+                if ($end < $total_pages - 1) {
+                    echo '<li class="page-item disabled"><span class="page-link">...</span></li>';
+                }
+                echo "<li class='page-item'>";
+                echo "<a class='page-link' href='?page=$total_pages'>$total_pages</a>";
+                echo "</li>";
+            }
+            ?>
+
+            <!-- Next Page Button -->
+            <li class="page-item <?= $page >= $total_pages ? 'disabled' : '' ?>">
+                <a class="page-link" 
+                   href="?page=<?= $page + 1 ?>" 
+                   <?= $page >= $total_pages ? 'tabindex="-1" aria-disabled="true"' : '' ?>>
+                    &raquo;
+                </a>
             </li>
         </ul>
+        <?php endif; ?>
+
+        <!-- Product Count Display -->
+        <div class="text-center text-muted mt-2 mb-3">
+            <?php if ($total_products > 0): ?>
+                Page <?= $page ?> of <?= $total_pages ?> - 
+                Showing <?= number_format($offset + 1) ?> - 
+                <?= number_format(min($offset + $per_page, $total_products)) ?> of 
+                <?= number_format($total_products) ?> products
+            <?php else: ?>
+                No products found
+            <?php endif; ?>
+        </div>
         <hr>
     </nav>
 </section>

@@ -89,10 +89,10 @@ if ($wishlist_count > 0) {
                         <td>
                             <form method="POST" action="wishlist_add_cart.php">
                                 <input type="hidden" name="product_id" value="<?= $item['product_id'] ?>">
-                                <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                <button type="submit" class="btn btn-warning text-white">Add to Cart</button>
                             </form>
                         </td>
-                        <td><a href="wishlist_remove.php?product_id=<?= $item['product_id'] ?>" class="btn btn-danger">Remove</a></td>
+                        <td><a href="wishlist_remove.php?product_id=<?= $item['product_id'] ?>" class="btn text-black" id="trash-action"><i class="fa-solid fa-trash"></i></a></td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

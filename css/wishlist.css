@@ -38,3 +38,9 @@
 svg {
     height: 20px;
 }
+
+#trash-action:hover {
+    cursor: pointer;
+    background-color: #BE0002;
+    color: white;
+}

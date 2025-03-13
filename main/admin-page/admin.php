@@ -11,17 +11,33 @@
         $total_sales = $total_sales_row['total'] ?: 0;
     }
     
-    // Get today's sales
-    $today = date('Y-m-d');
-    $today_sales_query = "SELECT SUM(p.total_amount) AS today_total 
-                         FROM payments p 
-                         JOIN orders o ON p.order_id = o.order_id 
-                         WHERE DATE(o.order_date) = '$today'";
-    $today_sales_result = $connection->query($today_sales_query);
+    // Get yesterday's sales
     $today_sales = 0;
-    if($today_sales_result && $today_sales_result->num_rows > 0) {
-        $today_sales_row = $today_sales_result->fetch_assoc();
-        $today_sales = $today_sales_row['today_total'] ?: 0;
+    try {
+        // Get current date in server's timezone
+        $current_date = new DateTime('now', new DateTimeZone(date_default_timezone_get()));
+        $today_start = $current_date->format('Y-m-d 00:00:00');
+        $today_end = $current_date->format('Y-m-d 23:59:59');
+    
+        // Use prepared statement with proper time range
+        $today_sales_query = "SELECT COALESCE(SUM(p.total_amount), 0) AS today_total 
+                             FROM payments p 
+                             INNER JOIN orders o ON p.order_id = o.order_id 
+                             WHERE o.order_date BETWEEN ? AND ?";
+        
+        $stmt = $connection->prepare($today_sales_query);
+        $stmt->bind_param("ss", $today_start, $today_end);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        if ($result) {
+            $today_sales_row = $result->fetch_assoc();
+            $today_sales = (float)$today_sales_row['today_total'];
+        }
+        $stmt->close();
+    } catch (Exception $e) {
+        error_log("Error fetching today's sales: " . $e->getMessage());
+        $today_sales = 0;
     }
     
     // Get total users - changed to count all users by ID
@@ -149,8 +165,9 @@
             <div class="stat-card green-card">
                 <div class="d-flex justify-content-between">
                     <div>
-                        <small class="d-block text-white">TODAY SALES</small>
+                        <small class="d-block text-white">YESTERDAY'S SALES</small>
                         <h3 class="mt-1 text-white">₱<?php echo number_format($today_sales, 2); ?></h3>
+                        <!-- <?php echo number_format($today_sales, 2); ?> -->
                     </div>
                     <div class="stat-icon">
                         <i class="fa-solid fa-chart-line text-white-50 fa-2x"></i>
