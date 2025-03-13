@@ -1,0 +1,488 @@
+/* GENERAL RESET & BASE STYLES */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+p {
+    font-size: clamp(12px, 2vw, 16px);
+}
+body {
+    font-size: 1rem; /* This will adjust dynamically based on html font-size */
+}
+
+/* FIRST-IMG SECTION */
+.first-img {
+    position: relative;
+    width: 100%;
+    height: 430px;
+    background-image: url("/assets/images/image-first.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-bottom: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-attachment: fixed;
+}
+.first-img .text {
+    position: absolute;
+    color: #fff;
+    font-size: clamp(12px, 1.5vw, 24px); /* Adjusts with screen size */
+    font-weight: bold;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+}
+
+/* HEADINGS */
+h1 {
+    font-size: clamp(24px, 3vw, 36px); /* Scales between 24px and 36px */
+    margin-bottom: 25px;
+}
+h2 {
+    font-size: clamp(16px, 2vw, 18px);
+    margin-bottom: 5px;
+}
+
+/* MAIN CONTAINER */
+.container {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 3%;
+    background-color: #ebe7eb;
+    border-radius: 10px;
+}
+.wrapper {
+    display: flex;
+    gap: 2rem;
+}
+
+/* TEXT WRAPPER */
+.text-wrapper {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(40px, 5vw, 100px);
+}
+.about-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+}
+
+/* DESKTOP IMAGE WRAPPER */
+.img-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    flex: 1;
+}
+.about-img {
+    display: flex;
+    align-items: center;
+    width: 500px;
+}
+.about-img img {
+    width: 500px;
+    height: 300px;
+    object-fit: fill;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-attachment: fixed;
+}
+.about-img img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Team Carousel */
+.team-swiper {
+    display: none;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.team-swiper .swiper-slide {
+    width: 100%;
+    padding: 0 20px;
+}
+
+.mobile-team .team-member {
+    width: 100%;
+    margin: 0;
+}
+
+.mobile-team .team-member img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* MOBILE CAROUSEL */
+.mobile-carousel {
+    display: none;
+    width: 100%;
+    margin: 2rem 0;
+}
+.swiper-slide img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+.swiper-button-next,
+.swiper-button-prev {
+    color: white;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 50%;
+}
+
+/* Vision-Mission */
+.vision-mission-container {
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.vision-mission {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 70px 0 40px;
+}
+
+.vision-mission-mini-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    flex: 1 1 55%;
+    min-width: 300px;
+}
+
+.content-box {
+    background-color: #ebe7eb;
+    padding: 1.5rem;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.vision-mission-img {
+    background-image: url("/assets/images/vision-img.png");
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    flex: 1 1 40%;
+    min-width: 300px;
+    min-height: 400px;
+}
+
+.vision-mission-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    width: 90%;
+}
+
+.vision-mission-text h1 {
+    font-size: clamp(1.5rem, 2.5vw, 2.8rem);
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+}
+
+.vision-mission-text p {
+    font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+    line-height: 1.6;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+/* Meet our Team */
+.team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 70px;
+    margin-bottom: 40px;
+}
+.team-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+.team-member {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 300px;
+    padding: 0.7rem;
+    background: #b02a24;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.team-member-info {
+    display: flex;
+    padding: 3%;
+    justify-content: space-between;
+}
+
+.team-member-socials {
+    display: flex;
+    align-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.team-member-socials a {
+    color: white;
+    font-size: 1.5rem; /* Adjust the font-size to resize the icon */
+    transition: color 0.3s ease;
+}
+
+.team-member-socials a:hover {
+    color: #4267b2; /* Facebook blue */
+}
+.team-member:hover {
+    transform: scale(1.03);
+    transition: 0.2s ease;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+.team-member img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.team-member h2 {
+    color: white;
+    font-size: 1rem;
+}
+.team-member p {
+    font-size: 0.8rem;
+    color: white;
+}
+
+/* Core Values */
+.core-values {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 70px;
+    margin-bottom: 40px;
+}
+.core-values-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+.core-value-box {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 300px;
+    padding: 1rem;
+    background: #b02a24;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.core-value:hover {
+    transform: scale(1.03);
+    transition: 0.2s ease;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+.core-value-box img {
+    width: 25%;
+    height: 25%;
+    border-radius: 10px;
+}
+.core-value-box h3 {
+    font-size: 1.5rem;
+}
+.core-value-box h2 {
+    color: white;
+}
+.core-value-box p {
+    font-size: 1rem;
+    color: white;
+}
+.core-values-swiper {
+    display: none;
+}
+.core-values-swiper .swiper-slide {
+    width: 100%;
+    padding: 0 20px;
+}
+
+.core-values-swiper .core-value-box {
+    width: 100%;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+/* -----------------------------------------
+MEDIA QUERIES (ONLY FOR LAYOUT CHANGES)
+----------------------------------------- */
+
+/* TABLET & BELOW */
+@media (max-width: 1024px) {
+    .img-wrapper {
+            display: none;
+    }
+    .mobile-carousel {
+            display: block;
+    }
+    .wrapper {
+            flex-direction: column;
+    }
+    .text-wrapper {
+            width: 100%;
+    }
+    .vision-mission {
+            flex-direction: column;
+    }
+    .vision-mission .text-wrapper,
+    .vision-mission .img-wrapper {
+            width: 100%;
+    }
+
+    .vision-mission {
+            flex-direction: column;
+            margin: 40px 0;
+            gap: 1.5rem;
+    }
+
+    .vision-mission-mini-container {
+            width: 100%;
+            flex: none;
+    }
+
+    .vision-mission-img {
+            flex: none;
+            min-height: 300px;
+    }
+
+    .vision-mission-text {
+            width: 85%;
+            padding: 15px;
+    }
+
+    .vision-mission-text h1 {
+            margin-bottom: 1rem;
+    }
+
+    .desktop-team {
+            display: none !important;
+    }
+
+    .team-swiper {
+            display: block;
+    }
+
+    .team-member:hover {
+            transform: none; /* Disable hover effect on mobile */
+    }
+    .core-values-content {
+            display: none;
+    }
+    .core-values-swiper {
+            display: block;
+            width: 100%;
+            padding: 20px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Team Carousel Centering */
+    .team-swiper .swiper-slide {
+            width: 70%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+    }
+
+    .mobile-team .team-member {
+            width: 100%;
+            max-width: 500px; /* Match your about-img carousel width */
+    }
+
+    /* Core Values Carousel Centering */
+    .core-values-swiper .swiper-slide {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+    }
+
+    .core-values-swiper .core-value-box {
+            width: 100%;
+            max-width: 500px; /* Match your about-img carousel width */
+    }
+}
+
+/* SMALLER SCREENS */
+@media (max-width: 600px) {
+    .first-img {
+            height: 300px;
+    }
+    .first-img .text {
+            padding: 5px;
+    }
+}
+
+@media (max-width: 500px) {
+    .vision-mission-container {
+            padding: 0 15px;
+    }
+
+    .vision-mission-text {
+            width: 95%;
+            padding: 10px;
+    }
+
+    .vision-mission-text h1 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+    }
+
+    .vision-mission-text p {
+            font-size: 0.85rem;
+    }
+
+    .content-box {
+            padding: 1rem;
+    }
+}
+
+/* EXTRA SMALL SCREENS */
+@media (max-width: 350px) {
+    .swiper-slide img {
+            width: 300px;
+            height: 300px;
+    }
+}

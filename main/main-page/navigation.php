@@ -33,8 +33,7 @@
                     <li class="nav-item"><a href="mainpage.php">HOME</a></li>
                     <li class="nav-item"><a href="wishlist.php">WISHLIST</a></li>
                     <li class="nav-item"><a href="shop.php">SHOP</a></li>
-                    <li class="nav-item"><a href="about.php">ABOUT US</a></li>
-                    <li class="nav-item"><a href="contact.php">CONTACT US</a></li>
+                    <li class="nav-item"><a href="aboutUs.php">ABOUT US</a></li>
                 </ul>
             </div>
 

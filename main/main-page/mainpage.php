@@ -102,12 +102,10 @@ $result = mysqli_query($connection, $query);
               <div class="col-md-3 mt-5">
                   <div class="card custom-card-height" style="width: 90%; height: 100%;">
                       <img src="/assets/images/<?php echo $row['product_image']; ?>" alt="<?php echo $row['product_name']; ?>" class="product-image thumbnail">
-                      <div class="card-body">
+                      <div class="card-body text-white" style="background-color: #BE0002;">
                           <h5 class="card-title"><?= $row['product_name'] ?></h5>
-                          <small class="card-text">Men</small>
                           <div class="d-flex flex-row">
-                              <p class="card-text text-decoration-line-through text-danger">150</p>
-                              <p class="card-text text-success">&nbsp;&nbsp;<?= $row['product_price'] ?></p>
+                              <p class="card-text">&nbsp;&nbsp;<?= $row['product_price'] ?></p>
                           </div>
                       </div>
                   </div>
@@ -146,12 +144,11 @@ $result = mysqli_query($connection, $query);
               <div class="col-md-3 mt-5">
                   <div class="card custom-card-height" style="width: 100%;"> 
                       <img src="/assets/images/<?php echo $row['product_image']; ?>" alt="<?php echo $row['product_name']; ?>" class="product-image thumbnail">
-                      <div class="card-body">
+                      <div class="card-body text-white" style="background-color: #BE0002">
                           <h5 class="card-title"><?= $row['product_name'] ?></h5>
                           
                           <div class="d-flex flex-row">
-                              <p class="card-text text-decoration-line-through text-danger">150</p>
-                              <p class="card-text text-success">&nbsp;&nbsp;<?= $row['product_price'] ?></p>
+                              <p class="card-text">&nbsp;&nbsp;<?= $row['product_price'] ?></p>
                           </div>
                       </div>
                   </div>
