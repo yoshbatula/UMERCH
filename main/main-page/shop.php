@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
         $_SESSION['cart'] = [];
     }
     
-    // Check if product already exists in user's cart directly in the database
+    // Check if product already exists in user's cart in the database
     $check_cart_query = "SELECT * FROM carts WHERE ID = ? AND product_id = ?";
     $check_cart_stmt = $connection->prepare($check_cart_query);
     $check_cart_stmt->bind_param("ii", $_SESSION['ID'], $product_id);
@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
     $stmt->bind_param("i", $product_id);
     $stmt->execute();
     $product_result = $stmt->get_result();
+    
     $quantity = 1;
     
     if ($product = mysqli_fetch_assoc($product_result)) {
@@ -56,65 +57,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
                 $_SESSION['message_type'] = "error";
             }
         } else {
-            // First check if any entry with this ID already exists 
-            // (this is the workaround if ID is the primary key)
-            $check_id_query = "SELECT * FROM carts WHERE ID = ?";
-            $check_id_stmt = $connection->prepare($check_id_query);
-            $check_id_stmt->bind_param("i", $_SESSION['ID']);
-            $check_id_stmt->execute();
-            $check_id_result = $check_id_stmt->get_result();
+            // Product does not exist, insert a new record
+            $subtotal = $product['product_price'] * $quantity;
+            $insert_cart_query = "INSERT INTO carts (ID, product_id, quantity, subtotal) VALUES (?, ?, ?, ?)";
+            $insert_cart_stmt = $connection->prepare($insert_cart_query);
+            $insert_cart_stmt->bind_param("iiid", $_SESSION['ID'], $product_id, $quantity, $subtotal);
             
-            if ($check_id_result->num_rows > 0) {
-                // If user already has items in cart, update the cart with this product
-                $update_cart_query = "UPDATE carts SET 
-                    product_id = ?, 
-                    quantity = ?, 
-                    subtotal = ? 
-                    WHERE ID = ?";
+            if ($insert_cart_stmt->execute()) {
+                $_SESSION['message'] = "Product added to cart successfully!";
+                $_SESSION['message_type'] = "success";
                 
-                $update_cart_stmt = $connection->prepare($update_cart_query);
-                $subtotal = $product['product_price'] * $quantity;
-                $update_cart_stmt->bind_param("iidi", 
-                    $product['product_id'],
-                    $quantity,
-                    $subtotal,
-                    $_SESSION['ID']
-                );
-                $update_cart_stmt->execute();
-                
-                if ($update_cart_stmt->affected_rows > 0) {
-                    $_SESSION['message'] = "Product added to cart successfully!";
-                    $_SESSION['message_type'] = "success";
-                    $_SESSION['cart'][] = $product_id;
-                } else {
-                    $_SESSION['message'] = "Failed to add product to cart: " . $update_cart_stmt->error;
-                    $_SESSION['message_type'] = "error";
-                }
+                // Add to session cart
+                $_SESSION['cart'][] = $product_id;
             } else {
-                // Insert new product into cart if no entries exist for this user
-                $insert_query = "INSERT INTO carts (ID, product_id, quantity, subtotal) 
-                              VALUES (?, ?, ?, ?)";
-                
-                $insert_stmt = $connection->prepare($insert_query);
-                $subtotal = $product['product_price'] * $quantity;
-                $insert_stmt->bind_param("iiid", 
-                    $_SESSION['ID'],
-                    $product['product_id'], 
-                    $quantity,
-                    $subtotal 
-                );
-                $insert_stmt->execute();
-    
-                if ($insert_stmt->affected_rows > 0) {
-                    $_SESSION['message'] = "Product added to cart successfully!";
-                    $_SESSION['message_type'] = "success";
-                    
-                    // Add to session cart
-                    $_SESSION['cart'][] = $product_id;
-                } else {
-                    $_SESSION['message'] = "Failed to add product to cart: " . $insert_stmt->error;
-                    $_SESSION['message_type'] = "error";
-                }
+                $_SESSION['message'] = "Error adding product to cart.";
+                $_SESSION['message_type'] = "error";
             }
         }
     } else {
@@ -204,7 +161,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
                                                 <i class="fa-solid fa-cart-shopping" id="cart-button" style="font-size: 10px;"> Add to Cart</i>
                                             </button>
                                         </form>
-                                        <a href="#" class="ms-2"><i class="fa-regular fa-heart" style="color: white; font-size: 16px; transform: translateY(3px);"></i></a>
+                                        <form action="wishlist_add.php" method="POST">
+                                            <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
+                                            <button type="submit" class="btn-link border-0 bg-transparent">
+                                                <i class="fa-regular fa-heart" style="color: white; font-size: 16px; transform: translateY(3px);"></i>
+                                            </button>
+                                        </form>
                                         
                                         <!-- View Button -->
                                         <a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#productModal<?= $row['product_id'] ?>">
@@ -234,7 +196,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
                                                                 <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>">
                                                                     <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
                                                                     <button type="submit" class="btn btn-warning" name="cart">Add to Cart</button>
-                                                                    <button type="button" class="btn btn-outline-danger"><i class="fa-regular fa-heart"></i> Add to Wishlist</button>
+                                                                </form>
+                                                                <form action="wishlist_add.php" method="POST">
+                                                                    <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
+                                                                    <button type="submit" class="btn btn-outline-danger">
+                                                                        <i class="fa-regular fa-heart"></i> Add to Wishlist
+                                                                    </button>
                                                                 </form>
                                                             </div>
                                                         </div>
