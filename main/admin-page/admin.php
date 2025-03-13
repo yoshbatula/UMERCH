@@ -1,6 +1,57 @@
 <?php
     session_start();
     include '../../database/dbconnect.php';
+    
+    // Get total sales
+    $total_sales_query = "SELECT SUM(total_amount) AS total FROM payments";
+    $total_sales_result = $connection->query($total_sales_query);
+    $total_sales = 0;
+    if($total_sales_result && $total_sales_result->num_rows > 0) {
+        $total_sales_row = $total_sales_result->fetch_assoc();
+        $total_sales = $total_sales_row['total'] ?: 0;
+    }
+    
+    // Get today's sales
+    $today = date('Y-m-d');
+    $today_sales_query = "SELECT SUM(p.total_amount) AS today_total 
+                         FROM payments p 
+                         JOIN orders o ON p.order_id = o.order_id 
+                         WHERE DATE(o.order_date) = '$today'";
+    $today_sales_result = $connection->query($today_sales_query);
+    $today_sales = 0;
+    if($today_sales_result && $today_sales_result->num_rows > 0) {
+        $today_sales_row = $today_sales_result->fetch_assoc();
+        $today_sales = $today_sales_row['today_total'] ?: 0;
+    }
+    
+    // Get total users - changed to count all users by ID
+    $users_query = "SELECT COUNT(ID) AS total_users FROM users";
+    $users_result = $connection->query($users_query);
+    $users_count = 0;
+    if($users_result && $users_result->num_rows > 0) {
+        $users_count = $users_result->fetch_assoc()['total_users'];
+    }
+    
+    // Get orders with pagination
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    $limit = 5; 
+    $offset = ($page - 1) * $limit;
+    
+    $orders_query = "SELECT o.order_id, o.ID, o.order_date, p.payment_id, p.total_amount 
+                    FROM orders o 
+                    JOIN payments p ON o.order_id = p.order_id 
+                    ORDER BY o.order_date DESC 
+                    LIMIT $limit OFFSET $offset";
+    $orders_result = $connection->query($orders_query);
+    
+    // Get total number of orders for pagination
+    $total_orders_query = "SELECT COUNT(*) as count FROM orders";
+    $total_orders_result = $connection->query($total_orders_query);
+    $total_orders = 0;
+    if($total_orders_result && $total_orders_result->num_rows > 0) {
+        $total_orders = $total_orders_result->fetch_assoc()['count'];
+    }
+    $total_pages = ceil($total_orders / $limit);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +73,7 @@
         
         <div class="admin-profile">
             <div class="profile-pic">
-                <img src="/assets/images/profile-icon.png" alt="Admin" class="rounded-circle" width="60">
+                <img src="/assets/images/profile-icon.png" alt="Admin" class="rounded-circle" width="50">
             </div>
             <div class="mt-2">
                 <h6 class="mb-0">Admin</h6>
@@ -75,7 +126,10 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <small class="d-block text-white">TOTAL SALES</small>
-                        <h3 class="mt-1 text-white">$5,74.12</h3>
+                        <h3 class="mt-1 text-white">₱<?php echo number_format($total_sales, 2); ?></h3>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-peso-sign text-white-50 fa-2x"></i>
                     </div>
                 </div>
             </div>
@@ -84,7 +138,10 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <small class="d-block text-white">TOTAL USERS</small>
-                        <h3 class="mt-1 text-white">$5,74.12</h3>
+                        <h3 class="mt-1 text-white"><?php echo number_format($users_count); ?></h3>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-users text-white-50 fa-2x"></i>
                     </div>
                 </div>
             </div>
@@ -93,7 +150,10 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <small class="d-block text-white">TODAY SALES</small>
-                        <h3 class="mt-1 text-white">$5,74.12</h3>
+                        <h3 class="mt-1 text-white">₱<?php echo number_format($today_sales, 2); ?></h3>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-chart-line text-white-50 fa-2x"></i>
                     </div>
                 </div>
             </div>
@@ -126,30 +186,34 @@
                                         <th>USER ID</th>
                                         <th>ORDER DATE</th>
                                         <th>TOTAL</th>
+                                        <!-- <th>ACTIONS</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php 
+                                    if($orders_result && $orders_result->num_rows > 0) {
+                                        while($order = $orders_result->fetch_assoc()) {
+                                    ?>
                                     <tr>
-                                        <td>ORD-001</td>
-                                        <td>1</td>
-                                        <td>Mar 10, 2025</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                        <td>150</td>
+                                        <td><?php echo $order['order_id']; ?></td>
+                                        <td><?php echo $order['payment_id']; ?></td>
+                                        <td><?php echo $order['ID']; ?></td>
+                                        <td><?php echo date('M d, Y', strtotime($order['order_date'])); ?></td>
+                                        <td>₱<?php echo number_format($order['total_amount'], 2); ?></td>
+                                        <!-- <td>
+                                            <a href="view_order.php?id=<?php echo $order['order_id']; ?>" class="btn">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td> -->
                                     </tr>
+                                    <?php 
+                                        }
+                                    } else {
+                                    ?>
                                     <tr>
-                                        <td>ORD-002</td>
-                                        <td>2</td>
-                                        <td>Mar 11, 2025</td>
-                                        <td><span class="badge bg-warning text-dark">Pending</span></td>
-                                        <td>150</td>
+                                        <td colspan="6" class="text-center">No orders found</td>
                                     </tr>
-                                    <tr>
-                                        <td>ORD-003</td>
-                                        <td>3</td>
-                                        <td>Mar 12, 2025</td>
-                                        <td><span class="badge bg-info">Processing</span></td>
-                                        <td>150</td>
-                                    </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -157,18 +221,63 @@
                     <div class="card-footer bg-white">
                         <nav aria-label="Order pagination">
                             <ul class="pagination justify-content-end mb-0">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                <li class="page-item <?php echo ($page <= 1) ? 'disabled' : ''; ?>">
+                                    <a class="page-link" href="?page=<?php echo $page - 1; ?>" tabindex="-1" aria-disabled="<?php echo ($page <= 1) ? 'true' : 'false'; ?>">Previous</a>
                                 </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
+                                
+                                <?php 
+                                $start_page = max(1, $page - 2);
+                                $end_page = min($total_pages, $page + 2);
+                                
+                                for($i = $start_page; $i <= $end_page; $i++): 
+                                ?>
+                                    <li class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>">
+                                        <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                                    </li>
+                                <?php endfor; ?>
+                                
+                                <li class="page-item <?php echo ($page >= $total_pages) ? 'disabled' : ''; ?>">
+                                    <a class="page-link" href="?page=<?php echo $page + 1; ?>">Next</a>
                                 </li>
                             </ul>
                         </nav>
                     </div>
+                </div>
+                <!-- view details -->
+                <div class="modal fade" id="productModal<?= $row['product_id'] ?>" tabindex="-1" aria-labelledby="productModalLabel<?= $row['product_id'] ?>" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="productModalLabel<?= $row['product_id'] ?>"><?= $row['product_name'] ?></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img src="/assets/images/<?= $row['product_image'] ?>" alt="<?= $row['product_name'] ?>" class="img-fluid">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5>Description</h5>
+                                            <p><?= $row['product_description'] ?></p>
+                                            <h5>Price</h5>
+                                            <p><?= $row['product_price'] ?></p>
+                                            <h5>Stock Count</h5>
+                                            <p><?= $row['stock'] ?></p>
+                                            <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>">
+                                                <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
+                                                <button type="submit" class="btn btn-warning" name="cart">Add to Cart</button>
+                                            </form>
+                                            <form action="wishlist_add.php" method="POST">
+                                                <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
+                                                <button type="submit" class="btn btn-outline-danger">
+                                                    <i class="fa-regular fa-heart"></i> Add to Wishlist
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>       
+                        </div>
                 </div>
             </div>
             <div class="footer mt-3">
@@ -176,6 +285,10 @@
             </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <script>
         $(document).ready(function() {
             $("#searchInput").on("keyup", function() {
@@ -186,10 +299,5 @@
             });
         });
     </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
 </body>
 </html>

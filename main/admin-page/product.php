@@ -202,11 +202,13 @@
             </div>
         </div>
     </div>
-    <!-- MESSAGE -->
-    <div class="mt-2">
-        <h4 style="margin-left: 20px;">Products</h4>
-        <small style="margin-left: 20px;">Welcome back Admin, everything looks great.</small>
-    </div>
+    <!-- message -->
+        <div class="dashboard-header mb-2">
+            <div class="container py-3">
+                <h4 class="mb-1 fw-bold">Product</h4>
+                <small class="text-muted">Welcome back Admin, everything looks great.</small>
+            </div>
+        </div>
         <!-- Product List Section -->
         <div class="product-list-container">
             <div class="product-list-card">

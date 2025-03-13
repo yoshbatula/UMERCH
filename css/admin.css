@@ -218,3 +218,7 @@ body {
         margin-bottom: 15px;
     }
 }
+
+#viewOrder {
+    background-color: none;
+}
