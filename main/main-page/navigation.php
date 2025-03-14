@@ -2,6 +2,23 @@
     session_start();
 
     include '../../database/dbconnect.php';
+
+    // Initialize cart count variable
+    $cart_count = 0;
+    
+    // Check if user is logged in
+    if (isset($_SESSION['ID']) && !empty($_SESSION['ID'])) {
+        // Query to count items in cart for this user
+        $cart_query = "SELECT SUM(quantity) as total_items FROM carts WHERE ID = ?";
+        $cart_stmt = $connection->prepare($cart_query);
+        $cart_stmt->bind_param("i", $_SESSION['ID']);
+        $cart_stmt->execute();
+        $cart_result = $cart_stmt->get_result();
+        
+        if ($cart_row = $cart_result->fetch_assoc()) {
+            $cart_count = $cart_row['total_items'] ?: 0; // Use null coalescing to handle NULL result
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +57,7 @@
             <div class="nav-actions">
                
                 <a href="cart.php" class="icon-btn"><img src="/assets/images/cart-icon.png" alt="Cart"></a>
-                <span class="text-white" style="transform: translateX(-20px); font-size:16px;" id="cart-count"><?= isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0 ?></span>
+                <span class="text-white" style="transform: translateX(-20px); font-size:16px;" id="cart-count"><?= $cart_count ?></span>
                 
                 <a href="my_orders.php" class="icon-btn text-white" style="transform: translateX(-15px); font-size: 16px;"><i class="fa-solid fa-table-list"></i>></a>
                 

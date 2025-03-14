@@ -1,5 +1,5 @@
 <?php
-include 'navigation.php';
+include 'navigation.php'; 
 include '../../database/dbconnect.php';
 
 // Pagination configuration
@@ -41,15 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
         $_SESSION['cart'] = [];
     }
     
-    // Check if product already exists in user's cart in the database
-    $check_cart_query = "SELECT * FROM carts WHERE ID = ? AND product_id = ?";
-    $check_cart_stmt = $connection->prepare($check_cart_query);
-    $check_cart_stmt->bind_param("ii", $_SESSION['ID'], $product_id);
-    $check_cart_stmt->execute();
-    $check_cart_result = $check_cart_stmt->get_result();
-    
-    // Get product information
-    $product_query = "SELECT product_id, product_name, product_price, product_image FROM products WHERE product_id = ?";
+    // Get product information including stock
+    $product_query = "SELECT product_id, product_name, product_price, product_image, stock FROM products WHERE product_id = ?";
     $stmt = $connection->prepare($product_query);
     $stmt->bind_param("i", $product_id);
     $stmt->execute();
@@ -58,41 +51,64 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
     $quantity = 1;
     
     if ($product = mysqli_fetch_assoc($product_result)) {
-        if ($check_cart_result->num_rows > 0) {
-            // Update quantity if product already in cart
-            $update_query = "UPDATE carts SET quantity = quantity + 1, subtotal = subtotal + ? WHERE ID = ? AND product_id = ?";
-            $update_stmt = $connection->prepare($update_query);
-            $update_stmt->bind_param("dii", $product['product_price'], $_SESSION['ID'], $product_id);
-            $update_stmt->execute();
+        // Check if product is in stock
+        if ($product['stock'] <= 0) {
+            $_SESSION['message'] = "Sorry, this product is out of stock!";
+            $_SESSION['message_type'] = "error";
+        } else {
+            // Check if product already exists in user's cart in the database
+            $check_cart_query = "SELECT * FROM carts WHERE ID = ? AND product_id = ?";
+            $check_cart_stmt = $connection->prepare($check_cart_query);
+            $check_cart_stmt->bind_param("ii", $_SESSION['ID'], $product_id);
+            $check_cart_stmt->execute();
+            $check_cart_result = $check_cart_stmt->get_result();
             
-            if ($update_stmt->affected_rows > 0) {
-                $_SESSION['message'] = "Product quantity updated in cart!";
-                $_SESSION['message_type'] = "success";
+            if ($check_cart_result->num_rows > 0) {
+                // Get current quantity in cart
+                $cart_item = $check_cart_result->fetch_assoc();
+                $current_qty = $cart_item['quantity'];
                 
-                // Add to session cart if not already there
-                if (!in_array($product_id, $_SESSION['cart'])) {
-                    $_SESSION['cart'][] = $product_id;
+                // Check if adding one more would exceed available stock
+                if ($current_qty + 1 > $product['stock']) {
+                    $_SESSION['message'] = "Cannot add more. Maximum available stock reached!";
+                    $_SESSION['message_type'] = "warning";
+                } else {
+                    // Update quantity if product already in cart and stock allows
+                    $update_query = "UPDATE carts SET quantity = quantity + 1, subtotal = subtotal + ? WHERE ID = ? AND product_id = ?";
+                    $update_stmt = $connection->prepare($update_query);
+                    $update_stmt->bind_param("dii", $product['product_price'], $_SESSION['ID'], $product_id);
+                    $update_stmt->execute();
+                    
+                    if ($update_stmt->affected_rows > 0) {
+                        $_SESSION['message'] = "Product quantity updated in cart!";
+                        $_SESSION['message_type'] = "success";
+                        
+                        // Add to session cart if not already there
+                        if (!in_array($product_id, $_SESSION['cart'])) {
+                            $_SESSION['cart'][] = $product_id;
+                        }
+                    } else {
+                        $_SESSION['message'] = "Failed to update cart";
+                        $_SESSION['message_type'] = "error";
+                    }
                 }
             } else {
-                $_SESSION['message'] = "Failed to update cart";
-                $_SESSION['message_type'] = "error";
-            }
-        } else {
-            // Product does not exist, insert a new record
-            $subtotal = $product['product_price'] * $quantity;
-            $insert_cart_query = "INSERT INTO carts (ID, product_id, quantity, subtotal) VALUES (?, ?, ?, ?)";
-            $insert_cart_stmt = $connection->prepare($insert_cart_query);
-            $insert_cart_stmt->bind_param("iiid", $_SESSION['ID'], $product_id, $quantity, $subtotal);
-            
-            if ($insert_cart_stmt->execute()) {
-                $_SESSION['message'] = "Product added to cart successfully!";
-                $_SESSION['message_type'] = "success";
+                // Product does not exist in cart, insert a new record
+                $subtotal = $product['product_price'] * $quantity;
+                $insert_cart_query = "INSERT INTO carts (ID, product_id, quantity, subtotal) VALUES (?, ?, ?, ?)";
+                $insert_cart_stmt = $connection->prepare($insert_cart_query);
+                $insert_cart_stmt->bind_param("iiid", $_SESSION['ID'], $product_id, $quantity, $subtotal);
                 
-                // Add to session cart
-                $_SESSION['cart'][] = $product_id;
-            } else {
-                $_SESSION['message'] = "Error adding product to cart.";
-                $_SESSION['message_type'] = "error";
+                if ($insert_cart_stmt->execute()) {
+                    $_SESSION['message'] = "Product added to cart successfully!";
+                    $_SESSION['message_type'] = "success";
+                    
+                    // Add to session cart
+                    $_SESSION['cart'][] = $product_id;
+                } else {
+                    $_SESSION['message'] = "Error adding product to cart.";
+                    $_SESSION['message_type'] = "error";
+                }
             }
         }
     } else {
@@ -127,6 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+    
 <!-- HEADER IMAGE -->
 <div class="d-flex">
     <div class="label-check-form text-center">
@@ -161,18 +178,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
                                     </div>
                                     <div class="d-flex flex-row ms-2">
                                         
+                                    <?php if ($row['stock'] > 0): ?>
                                         <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>">
                                             <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
                                             <button type="submit" class="btn btn-warning" id="add-to-cart">
                                                 <i class="fa-solid fa-cart-shopping" id="cart-button" style="font-size: 10px;"> Add to Cart</i>
                                             </button>
                                         </form>
-                                        <form action="wishlist_add.php" method="POST">
-                                            <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
-                                            <button type="submit" class="btn-link border-0 bg-transparent">
-                                                <i class="fa-regular fa-heart" style="color: white; font-size: 16px; transform: translateY(3px);"></i>
-                                            </button>
-                                        </form>
+                                    <?php else: ?>
+                                        <button class="btn btn-secondary" disabled>
+                                            <i class="fa-solid fa-ban" style="font-size: 10px;"> Out of Stock</i>
+                                        </button>
+                                    <?php endif; ?>
+
+                                    <!-- wishlist -->
+                                    <form action="wishlist_add.php" method="POST">
+                                        <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
+                                        <button type="submit" class="btn-link border-0 bg-transparent">
+                                            <i class="fa-regular fa-heart" style="color: white; font-size: 16px; transform: translateY(3px);"></i>
+                                        </button>
+                                    </form>
                                         
                                         <!-- View Button -->
                                         <a href="#" class="ms-2" data-bs-toggle="modal" data-bs-target="#productModal<?= $row['product_id'] ?>">
@@ -199,11 +224,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
                                                                 <p><?= $row['product_price'] ?></p>
                                                                 <h5>Stock Count</h5>
                                                                 <p><?= $row['stock'] ?></p>
-                                                                <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>">
-                                                                    <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
-                                                                    <button type="submit" class="btn btn-warning" name="cart">Add to Cart</button>
-                                                                </form>
-                                                                <form action="wishlist_add.php" method="POST">
+                                                                <?php if ($row['stock'] > 0): ?>
+                                                                    <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>">
+                                                                        <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
+                                                                        <button type="submit" class="btn btn-warning" name="cart">Add to Cart</button>
+                                                                    </form>
+                                                                <?php else: ?>
+                                                                    <button class="btn btn-secondary" disabled>Out of Stock</button>
+                                                                <?php endif; ?>
+                                                                <form action="wishlist_add.php" method="POST" class="mt-2">
                                                                     <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
                                                                     <button type="submit" class="btn btn-outline-danger">
                                                                         <i class="fa-regular fa-heart"></i> Add to Wishlist

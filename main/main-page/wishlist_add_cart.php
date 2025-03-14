@@ -38,7 +38,7 @@ if ($product['stock'] <= 0) {
 }
 
 // FIRST: Verify the product exists in the wishlist (as a safety check)
-$check_wishlist_query = "SELECT * FROM wishlist WHERE ID = ? AND product_id = ?";
+$check_wishlist_query = "SELECT * FROM wishlists WHERE ID = ? AND product_id = ?";
 $check_wishlist_stmt = $connection->prepare($check_wishlist_query);
 $check_wishlist_stmt->bind_param("ii", $user_id, $product_id);
 $check_wishlist_stmt->execute();
@@ -111,7 +111,7 @@ try {
     }
     
     // Now remove the item from the wishlist
-    $remove_from_wishlist_query = "DELETE FROM wishlist WHERE ID = ? AND product_id = ?";
+    $remove_from_wishlist_query = "DELETE FROM wishlists WHERE ID = ? AND product_id = ?";
     $remove_from_wishlist_stmt = $connection->prepare($remove_from_wishlist_query);
     $remove_from_wishlist_stmt->bind_param("ii", $user_id, $product_id);
     

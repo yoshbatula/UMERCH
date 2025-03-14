@@ -105,7 +105,7 @@ $result = mysqli_query($connection, $query);
                       <div class="card-body text-white" style="background-color: #BE0002;">
                           <h5 class="card-title"><?= $row['product_name'] ?></h5>
                           <div class="d-flex flex-row">
-                              <p class="card-text">&nbsp;&nbsp;<?= $row['product_price'] ?></p>
+                              <p class="card-text">&nbsp;&nbsp;<?php echo "₱" . $row['product_price'] ?></p>
                           </div>
                       </div>
                   </div>
@@ -120,9 +120,8 @@ $result = mysqli_query($connection, $query);
             <div class="overlay">
               <h5 class="mb-4">Limited Time Offer</h5>
               <h1 class="mb-4">Special Edition</h1>
-              <small>Lorem ipsum dolor sit amet</small>
-              <small>consecetur. Purus aenean</small>
-              <small class="mb-4">bibendum ipsum ligula sit velit nibh.</small>
+              <small>Don't miss out! Get your hands on</small>
+              <small>our exclusive Special Edition T-Shirt</small
               <h5>Buy T-shirt at 20% Discount,</h5>
               <h5 class="mb-4">Use Code OFF20</h5>
               <button class="btn-featured btn text-white" style="font-size: 12px;" onclick="location.href='shop.php'">SHOP NOW</button>
@@ -148,7 +147,7 @@ $result = mysqli_query($connection, $query);
                           <h5 class="card-title"><?= $row['product_name'] ?></h5>
                           
                           <div class="d-flex flex-row">
-                              <p class="card-text">&nbsp;&nbsp;<?= $row['product_price'] ?></p>
+                              <p class="card-text">&nbsp;&nbsp;<?php echo "₱" . $row['product_price'] ?></p>
                           </div>
                       </div>
                   </div>

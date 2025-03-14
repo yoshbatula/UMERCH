@@ -165,7 +165,7 @@
             <div class="stat-card green-card">
                 <div class="d-flex justify-content-between">
                     <div>
-                        <small class="d-block text-white">YESTERDAY'S SALES</small>
+                        <small class="d-block text-white">TODAY'S SALES</small>
                         <h3 class="mt-1 text-white">₱<?php echo number_format($today_sales, 2); ?></h3>
                         <!-- <?php echo number_format($today_sales, 2); ?> -->
                     </div>

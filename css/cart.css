@@ -156,18 +156,16 @@ span.active {
 
 
 .cart-actions .update-cart, .cart-actions .continue-shopping {
-  background-color: #222;
+  background-color: #ffc107;
   color: #fff;
   border: none;
   padding: 7px 12px;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  text-decoration: none;
+  border-radius: 10px;
+  border: 1px solid white;
+  font-weight: bold;
 }
-
-
-.cart-actions .update-cart:hover, .cart-actions .continue-shopping:hover {
-  background-color: #be0002;
-}
-
 
 .coupon-box {
   display: flex;
@@ -176,9 +174,6 @@ span.active {
   border: 1px solid #ddd;
   padding: 20px;
 }
-
-
-
 
 .coupon-box input{
   flex: 1; /* Makes the input take all available space */
@@ -197,6 +192,7 @@ span.active {
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  text-decoration: none ;
 }
 
 
@@ -224,19 +220,17 @@ span.active {
   justify-content: center;
 }
 .checkout {
-  background-color: #222;
+  background-color: #ffc107;
   color: #fff;
   border: none;
   padding: 7px 12px;
   align-items: center;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  text-decoration: none;
+  border-radius: 10px;
+  border: 1px solid white;
+  font-weight: bold;
 }
-
-
-.checkout:hover {
-  background-color: #be0002;
-}
-
 
 .cart-footer .total {
   font-size: 20px;

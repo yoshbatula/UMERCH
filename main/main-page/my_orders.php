@@ -55,7 +55,7 @@ $result = $stmt->get_result();
                     <td><?php echo $row['order_date'];?></td>
                     <td><?php echo $row['total_amount'];?></td>
                     <td>
-                    <button class="btn btn-primary view-btn" onclick="window.location.href='my_order_details.php?order_id=<?php echo $row['order_id']; ?>'">
+                        <button class="btn btn-primary view-btn" onclick="window.location.href='my_order_details.php?order_id=<?php echo $row['order_id']; ?>'">
                             <i class="fas fa-eye"></i>
                         </button>
                     </td>

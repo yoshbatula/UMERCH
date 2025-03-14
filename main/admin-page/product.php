@@ -13,7 +13,7 @@
         $targetFilePath = $targetDir . '/' . $fileName;
         $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
         
-        $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
+        $allowTypes = array('jpg', 'png', 'jpeg', 'gif', 'webp');
         if(in_array($fileType, $allowTypes)){
             if(move_uploaded_file($file["tmp_name"], $targetFilePath)){
                 return $fileName;

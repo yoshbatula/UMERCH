@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
     $product_id = $_POST['product_id'];
     
     // Check if product already exists in user's wishlist
-    $check_wishlist_query = "SELECT * FROM wishlist WHERE ID = ? AND product_id = ?";
+    $check_wishlist_query = "SELECT * FROM wishlists WHERE ID = ? AND product_id = ?";
     $check_wishlist_stmt = $connection->prepare($check_wishlist_query);
     $check_wishlist_stmt->bind_param("ii", $_SESSION['ID'], $product_id);
     $check_wishlist_stmt->execute();
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
         $_SESSION['message_type'] = "info";
     } else {
         // Insert product into wishlist
-        $insert_wishlist_query = "INSERT INTO wishlist (ID, product_id) VALUES (?, ?)";
+        $insert_wishlist_query = "INSERT INTO wishlists (ID, product_id) VALUES (?, ?)";
         $insert_wishlist_stmt = $connection->prepare($insert_wishlist_query);
         $insert_wishlist_stmt->bind_param("ii", $_SESSION['ID'], $product_id);
         

@@ -11,7 +11,7 @@ if (!isset($_SESSION['ID']) || empty($_SESSION['ID'])) {
 }
 
 // Check if the wishlist is empty
-$check_empty_query = "SELECT COUNT(*) as count FROM wishlist WHERE ID = ?";
+$check_empty_query = "SELECT COUNT(*) as count FROM wishlists WHERE ID = ?";
 $check_empty_stmt = $connection->prepare($check_empty_query);
 $check_empty_stmt->bind_param("i", $_SESSION['ID']);
 $check_empty_stmt->execute();
@@ -21,10 +21,10 @@ $wishlist_count = $check_empty_result->fetch_assoc()['count'];
 $wishlist = [];
 if ($wishlist_count > 0) {
     $query = "SELECT products.product_image, products.product_name, products.product_price,
-                     products.stock, wishlist.ID, wishlist.product_id
-              FROM wishlist
-              JOIN products ON wishlist.product_id = products.product_id
-              WHERE wishlist.ID = ?";
+                     products.stock, wishlists.ID, wishlists.product_id
+              FROM wishlists
+              JOIN products ON wishlists.product_id = products.product_id
+              WHERE wishlists.ID = ?";
               
     $stmt = $connection->prepare($query);
     $stmt->bind_param("i", $_SESSION['ID']);

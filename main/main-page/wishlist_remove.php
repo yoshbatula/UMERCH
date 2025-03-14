@@ -7,7 +7,7 @@ if (isset($_GET['product_id'])) {
     $product_id = $_GET['product_id'];
     
     // Delete the product from wishlist
-    $delete_query = "DELETE FROM wishlist WHERE ID = ? AND product_id = ?";
+    $delete_query = "DELETE FROM wishlists WHERE ID = ? AND product_id = ?";
     $delete_stmt = $connection->prepare($delete_query);
     $delete_stmt->bind_param("ii", $_SESSION['ID'], $product_id);
     

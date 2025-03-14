@@ -31,7 +31,7 @@ $cart_count = $check_empty_result->fetch_assoc()['count'];
     <div class="container mt-4">
         <div class="cart-header">
           <span class="active"><span class="step-number">01</span> <span class="step-text">Shopping Cart</span></span>
-          <span class="inactive" onclick="navigateTo('order.php')"><span class="step-number">02</span> <span class="step-text">Complete-Order</span></span>
+          <span class="inactive"><span class="step-number">02</span> <span class="step-text">Complete-Order</span></span>
         </div>
         
         <?php if ($cart_count === 0): ?>
@@ -46,15 +46,16 @@ $cart_count = $check_empty_result->fetch_assoc()['count'];
                     <tr>
                         <th>IMAGE</th>
                         <th>PRODUCT NAME</th>
+                        <th>STOCK</th>
                         <th>UNIT PRICE</th>
                         <th>QUANTITY</th>
-                        <th>TOTAL</th>
+                        <th>SUBTOTAL</th>
                         <th>REMOVE</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                        $query = "SELECT products.product_image, products.product_name, products.product_price, 
+                        $query = "SELECT products.product_image, products.product_name, products.product_price, products.stock,
                                 carts.quantity, carts.subtotal, carts.ID, carts.product_id
                                 FROM carts 
                                 JOIN products ON carts.product_id = products.product_id 
@@ -75,6 +76,7 @@ $cart_count = $check_empty_result->fetch_assoc()['count'];
                     <tr>
                         <td><img src="/assets/images/<?php echo $row['product_image']; ?>" alt="Product Image" class="img-thumbnail" style="max-width: 100px;"></td>
                         <td><?php echo $row['product_name']; ?></td>
+                        <td><?php echo $row['stock']; ?></td>
                         <td><?php echo number_format($row['product_price'], 2); ?></td>
                         <form method="post" action="cart_update.php">
                             <td class="quantity-box">
@@ -82,6 +84,7 @@ $cart_count = $check_empty_result->fetch_assoc()['count'];
                                 <input type="hidden" name="ID" value="<?php echo $row['ID']; ?>">
                                 <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
                                 <input type="hidden" name="price" value="<?php echo $row['product_price']; ?>">
+                                <input type="hidden" name="stock" value="<?php echo $row['stock']; ?>">
                                 <input type="text" name="quantity" value="<?php echo $row['quantity']; ?>" class="form-control d-inline w-auto" readonly>
                                 <button type="submit" name="increase" class="btn btn-outline-secondary">+</button>
                             </td>
@@ -159,7 +162,14 @@ $cart_count = $check_empty_result->fetch_assoc()['count'];
     <?php include 'footer.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
+
+</body>
+</html>
+
+
+
+
+<script>
       function navigateTo(url) {
         window.location.href = url;
       }
@@ -176,5 +186,3 @@ $cart_count = $check_empty_result->fetch_assoc()['count'];
           <?php endif; ?>
       });
     </script>
-</body>
-</html>
