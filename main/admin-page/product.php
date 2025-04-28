@@ -1,9 +1,10 @@
 <?php
     session_start();
-    include '../../database/dbconnect.php';
+    include 'C:\laragon\www\UMERCH\database\dbconnect.php';
     
     // Function to handle image uploads
     function handleImageUpload($file) {
+
         $targetDir = "../../assets/images";
         if (!file_exists($targetDir)) {
             mkdir($targetDir, 0777, true);
@@ -39,10 +40,10 @@
                 $imageName = handleImageUpload($_FILES['productImage']);
             }
             
-            $sql = "INSERT INTO products (product_image, product_name, product_price, stock, product_type, product_description) 
+            $sql = "INSERT INTO products (product_image, product_description, product_name, product_price, stock, product_type) 
                     VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = $connection->prepare($sql);
-            $stmt->bind_param("ssdiss", $imageName, $productName, $unitPrice, $stock, $productType, $productDescription);
+            $stmt->bind_param("ssdiss", $imageName, $productDescription, $productName, $unitPrice, $stock, $productType);
             
             if($stmt->execute()) {
                 $_SESSION['message'] = "Product added successfully!";

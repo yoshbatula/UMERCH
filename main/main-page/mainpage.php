@@ -1,5 +1,5 @@
 <?php
-include '/xampp/htdocs/UMERCH/database/dbconnect.php';
+include 'C:\laragon\www\UMERCH\database\dbconnect.php';
 
 $query = "SELECT * FROM products";
 $result = mysqli_query($connection, $query);

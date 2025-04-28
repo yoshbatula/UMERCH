@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include '/xampp/htdocs/UMERCH/database/dbconnect.php';
+include 'C:\laragon\www\UMERCH\database\dbconnect.php';
 
 $admin_email = "admin";
 $admin_id = "123123";
